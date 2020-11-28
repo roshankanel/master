@@ -1,0 +1,24 @@
+<%# this is trigger only after either update or show %>
+<% unless item.blank? %>
+<tr <tr style='background-color: #d4edda;' id=<%= item.id %> >
+  <td><%= item.id %></td>
+  <td><%= item.item_product %></td>
+  <td><%= item.item_number %></td>
+  <td><%= item.finished_size.blank? ? "" : item.finished_size %></td>
+  <td style="text-align:right" ><%= item.setup_price %></td>
+  <td style="text-align:right"><%= item.unit_price %></td>
+  <td><%= item.created_by %></td>
+  <td><%= item.updated_by %></td>
+  <td style="text-align:center">
+    <div>
+      <%= link_to 'Show',  item_path(item.id), {
+        remote: true, "data-target" => "#modal-window",
+        class: "btn btn-sm btn-primary"} %>
+
+      <%= link_to 'Edit', edit_item_path(item.id), {
+        remote: true, "data-target" => "#modal-window",
+        class: "btn btn-sm btn-warning"} %>
+    </div>
+  </td>
+</tr>
+<% end %>

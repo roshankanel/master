@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="modal-content">
+    <%= form_for @role, url: {action: "save_permissions" }, method: "post", remote: true,
+      html: { class: "save_permissions form-horizontal", id: "savepermissions#{@role.id}" } do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2><%= heading_prefix %> Role<%= heading_prefix == 'Edit' ? ": #{@role.name }" : '' %></h2>
+      </div>
+      <%#= render partial: 'layouts/flash_messages', locals: {:context => :modal}  %>
+      <div class="modal-body scrollable">
+        <div class="form-group" >
+          <!-- Nav tabs -->
+          <div class="col-sm-3">
+            <div class="nav tabs-left RolesHeader" role="tablist" id ="myTab">
+              <% @perm_groups.each do |grp, perms|%>
+                <% unless perms.blank? %>
+                  <% grp_name = grp.delete(' ') %>
+                  <!-- Deleting special character -->
+                  <% grp_name.gsub!(/[^0-9A-Za-z]/, '') unless grp_name.blank? %>
+                  <div class="nav-item RolesSubHeader">
+                    <a class="nav-link" data-toggle="tab" href="#panel-group-<%= grp_name %>"
+                      role="tab" id="<%= grp_name %>"><%= grp %></a>
+                  </div>
+                <% end %>
+              <% end %>
+              <div class="nav-item RolesSubHeader">
+                <a class="nav-link active" data-toggle="tab" href="#panel-all"
+                  role="tab" id="All"> All</a>
+              </div>
+            </div>
+          </div>
+          <!-- Tab panels -->
+          <div class="col-md-8">
+            <div class="tab-content">
+              <% @perm_groups.each do |g, perms|%>
+                <% grp_class = g.delete(' ') unless g.blank? %>
+                <!-- Deleting special character -->
+                <% grp_class.gsub!(/[^0-9A-Za-z]/, '') unless grp_class.blank? %>
+                <div id="panel-group-<%= grp_class %>" class="tab-pane fade" role="tabpanel">
+                  <% perms.each do |perm| %>
+                    <% checked_flag = @existing_perms.index(perm.id).nil? ? false : true %>
+                    <div class="col-md-4">
+                      <%= check_box_tag "role[permission_ids][]", perm.id, checked_flag,
+                        {class: "cbox", id: "role_permission_ids_#{perm.id}", "data-group" => "#{grp_class}"} %>
+                        <%= f.label "permission_ids_#{perm.id}", perm.name, class: "role-perms-label" %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+              <div id="panel-all" class="tab-pane fade in active" role="tabpanel">
+                <% @permissions.each do |perm| %>
+                  <% checked_flag = @existing_perms.index(perm.id).nil? ? false : true %>
+                  <div class="col-md-4">
+                    <%= check_box_tag "role[permission_ids][]", perm.id, checked_flag,
+                      {class: "cbox", id: "role_permission_ids_#{perm.id}", "data-group" => "all"} %>
+                    <%= f.label "permission_ids_#{perm.id}", perm.name, {class: "role-perms-label"} %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <%= hidden_field "role[id]", "role_id" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="actions col-md-12 text-center">
+          <%= f.submit submit_label, {class: "btn btn-default btn-success",
+            id: "save_role_perms_#{@role.id}"} %>
+          <%= f.button 'Cancel', {class: "btn btn-default", "data-dismiss" => "modal"} %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(".modal-body #panel-all input[type='checkbox']").change(event, function(){
+      var id = this.id;
+      var state = $("#panel-all " + "input#" + id + ":checked").length;
+      sync_checkbox("others", id, state);
+    });
+
+    $(".modal-body div[id^='panel-group-'] input[type='checkbox']").change(event, function(){
+      var id = this.id;
+      var state = $("div[id^='panel-group-'] " + "input#" + id + ":checked").length;
+      sync_checkbox("all", id, state);
+    });
+  });
+
+  function sync_checkbox(group, id, state) {
+    if (group == "all") {
+      ele = "#panel-all input#" + id;
+    } else {
+      ele = "div[id^='panel-group-'] input#" + id;
+    }
+
+    if (state == 0) {
+      // uncheck
+      $(ele).prop("checked", false);
+    } else {
+      // check
+      $(ele).prop("checked",true);
+    }
+  }
+
+  $(".RolesSubHeader").on("click", function() {
+    $(".RolesSubHeader").css("background", "#f1f1f1");
+    $(this).css("background", "#b5e899");
+  });
+
+</script>

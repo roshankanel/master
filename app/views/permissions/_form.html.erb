@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="modal-content">
+    <%= form_for(:permission, remote: true, url: url, method: method, html: {class: 'form-horizontal'}) do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= render partial: 'layouts/flash_messages', locals: {:context => :modal}  %>
+      <div class="modal-body">
+        <div class="form-group required <%= @error_msg[:group_name].blank? ? "" : "has-error" %>">
+          <%= f.label :group_name, class: "control-label col-md-2" %>
+          <div class="col-md-4">
+            <% default_grp = @permission.group_name %>
+            <%= f.select :group_name, options_for_select(@permission_grps, "#{default_grp}"),
+                        {prompt: false}, {autofocus: true, class:"form-control selectpicker", required: true} %>
+          </div>
+        </div>
+        <div class="form-group required <%= @error_msg[:name].blank? ? "" : "has-error" %>">
+          <%= f.label :name, class: "control-label col-md-2" %>
+          <div class="col-md-8">
+            <%= f.text_field :name, {class: "form-control", required: true} %>
+          </div>
+        </div>
+        <div class="form-group required <%= @error_msg[:description].blank? ? "" : "has-error" %>">
+          <%= f.label :description, class: "control-label col-md-2" %>
+          <div class="col-md-8">
+            <%= f.text_area :description, {class: "form-control", required: true, style: "min-width: 80%"} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+       <div class="col-md-12 col-md-offset-2">
+         <span class="help-block"><span class="mandatory">*</span> denotes required field</span>
+       </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="actions col-md-12 text-center">
+          <%= f.submit submit_label, {class: "btn btn-default btn-success"} %>
+          <%= f.button 'Cancel', {class: "btn btn-default", "data-dismiss" => "modal"} %>
+          <% if (controller.action_name == "edit") %>
+            <%= f.button 'Delete', {id: "delete", class: "btn btn-danger", "type" => "button",
+              "data-toggle" => "collapse", "data-target" => "#confirm-delete-pane", remote: true} %>
+            <div id="confirm-delete-pane" class="confirm-delete-pane collapse col-md-12 text-center">
+              <p>Please confirm that you want to delete Permission: <%= @permission.name %></p>
+              <%= link_to 'Confirm Delete', permission_path(@permission.id),
+                {method: 'delete', id: 'confirm-delete', class: 'btn btn-danger', remote: true} %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<!-- This index page shows the summary of all roles -->
+<div class="container-fluid">
+  <h1 class="page-header">Roles
+  </h1>
+  <div>
+    <div class="col-sm-1">
+        <%= link_to "Add Role", new_role_path,
+          {'class' => 'btn btn-success', 'remote' => true,
+          'data-target' => '#modal-window', 'id' => 'Add_btn'} %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <hr>
+  <% unless @roles.blank? %>
+    <table class="table table-bordered table-hover table-striped" id="tblItem">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Action(s)</th>
+          <th scope="col">TimeStamp)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "row",  locals: { roles: @roles} %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<div class="col-md-2">
+  <div class="hidden context-right-side-pane">
+  </div>
+</div>
+</div>
+
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#tblItem').DataTable();
+});
+
+</script>

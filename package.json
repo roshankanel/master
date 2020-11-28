@@ -1,0 +1,25 @@
+{
+  "name": "pres_quote",
+  "private": true,
+  "dependencies": {
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.3.0",
+    "bootstrap": "^4.5.3",
+    "bootstrap-toggle": "^2.2.2",
+    "bootstrap4-toggle": "^3.6.1",
+    "bower": "^1.8.8",
+    "datatables.net-bs4": "^1.10.22",
+    "datatables.net-dt": "^1.10.22",
+    "flatpickr": "^4.6.6",
+    "imports-loader": "^1.2.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "turbolinks": "^5.2.0"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  }
+}

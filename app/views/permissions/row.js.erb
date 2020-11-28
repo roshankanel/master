@@ -1,0 +1,21 @@
+// close the modal
+$("#modal-window").modal("hide");
+$(".row.row-msg").fadeOut().remove();
+$(".messages").fadeOut().remove();
+<% if controller.action_name == "index" %>
+  // Placeholder maybe when we update states belonging to countries this changes
+<% elsif controller.action_name == "create" %>
+  var item = <%= @permission.to_json.html_safe %>;
+  $('#tblItem tbody tr:first').before("<%= escape_javascript(render partial: 'row_item', locals: { permission: @permission} ) %>");
+<% elsif controller.action_name == "update" %>
+  var item = <%= @permission.to_json.html_safe %>;
+  // var show_loc =<% permission_path(@permission).html_safe %>
+  // $("#"+ item["id"] +"").remove();
+  // $('table#tblItem tr#'<%= @item.to_json.html_safe %>).remove();
+   $("#"+ item["id"] +"").replaceWith("<%= escape_javascript(render partial: 'row_item', locals: { permission: @permission} ) %>");
+<% elsif controller.action_name == "destroy" %>
+  var item = <%= @permission.to_json.html_safe %>;
+  $("#"+ item["id"] +"").fadeOut("normal", function() {
+        $(this).remove();
+  });
+<% end %>

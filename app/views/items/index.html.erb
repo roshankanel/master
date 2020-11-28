@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <%= form_tag(items_path, method: 'get', id: 'search_item') do |f| %>
+    <h1>
+      Items
+    </h1>
+    <hr>
+    <div>
+      <%= link_to "Add Item", new_item_path,
+        {'class' => 'btn btn-success', 'remote' => true,
+          'data-target' => '#myModal', 'id' => 'Add_btn'} %>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-2">
+        <%= search_field_tag :item_number, nil, class: 'form-control',
+        placeholder: 'Item Number', value: params[:item_number] %>
+      </div>
+      <div class="col-sm-2">
+        <%= search_field_tag :item_product, nil, class: 'form-control',
+        placeholder: 'Item Product', value: params[:item_product] %>
+      </div>
+      <div class="col-sm-2">
+        <%= search_field_tag :finished_size, nil, class: 'form-control',
+        placeholder: 'Finished Size', value: params[:finished_size] %>
+      </div>
+      <div class="col-sm-2">
+        <%= select_tag :archived, options_for_select(['True', 'False'],
+          params[:archived].to_s), {prompt: "Archived", class: 'form-control selectpicker'} %>
+      </div>
+      <div class="col-sm-2">
+          <%= submit_tag "Submit", class: 'btn btn-primary btn-md', :name => nil,
+            id: 'log_submit_btn' %>
+          <input type="button" value="Clear" id="clear_filter"
+            class="btn btn-danger btn-md">
+      </div>
+    </div>
+  <% end %>
+
+  <br>
+  <% unless @items.blank? %>
+    <table class="table table-bordered table-hover table-striped" id="tblItem">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item Product</th>
+          <th scope="col">Item Number</th>
+          <th scope="col">Finished Size</th>
+          <th scope="col">Setup Price</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Created by</th>
+          <th scope="col">Updated by</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "row",  locals: { items: @items} %>
+      </tbody>
+    </table>
+  <% end %>
+<div>
+
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+  <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#tblItem').DataTable();
+    // $('#tblItem').DataTable({
+    //   "dom": 'lBfrtip',
+    //   buttons: [
+    //     {
+    //       extend: 'excelHtml5',
+    //       exportOptions: {
+    //           columns: [ 0, 1, 2, 3, 4, 5 ]
+    //       }
+    //     },
+    //     {
+    //       extend: 'pdfHtml5',
+    //       exportOptions: {
+    //         columns: [ 0, 1, 2, 3, 4, 5 ]
+    //       }
+    //     }
+    //   ]
+    // });
+
+  });
+
+  $('#clear_filter').click(function() {
+    $('#tblItem').DataTable().clear().draw();
+    $("#item_number").val('');
+    $("#item_product").val('');
+    $("#finished_size").val('');
+    $("#archived").val($("#archived option:first").val());;
+  });
+
+</script>

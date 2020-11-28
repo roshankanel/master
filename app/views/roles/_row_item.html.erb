@@ -1,0 +1,27 @@
+<%# this is trigger only after either update or show %>
+<% unless role.blank? %>
+<tr style='background-color: #d4edda;' id=<%= role.id %> >
+  <td><%= role.id %></td>
+  <td><%= role.name %></td>
+  <td><%= role.description %></td>
+
+  <td style="text-align:center">
+    <div>
+      <%= link_to 'Show', role_path(role),  {remote: true,
+        'data-target' => '#modal-window',
+        class: 'btn btn-primary btn-sm'} %>
+        <%= link_to "Edit",  edit_role_path(role),  {
+          remote: true,
+          'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+
+      <%= link_to "Permissions", role_update_permissions_path(role), {
+          remote: true,
+          'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+    </div>
+  </td>
+
+  <td>Created at <%= role.created_at.to_s(:medium) %> by <%= role.created_by %><br>
+  Updated at <%= role.updated_at.to_s(:medium) %> by <%= role.updated_by %></td>
+
+</tr>
+<% end %>

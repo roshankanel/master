@@ -1,0 +1,45 @@
+<div id="login-wrapper" class="text-center">
+  <!-- Your logo goes here -->
+</div>
+<% unless Rails.env == "production" %>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="alert alert-warning">
+      <%= "This is a test environment (#{Rails.env})" %>
+    </div>
+  </div>
+<% end %>
+<div id="login">
+
+  <div class="container">
+    <% if resource.errors.any? %>
+      <div class="alert alert-danger">
+        <%= render "devise/shared/error_messages", resource: resource %>
+      </div>
+    <% end %>
+    <div id="login-row" class="row justify-content-center align-items-center">
+      <div id="login-column" class="col-md-6">
+        <div id="login-box" class="col-md-12">
+
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <h3 class="text-center text-secondary pt-5">Forgot your password?</h3>
+            <hr>
+            <div class="form-group">
+              <%= f.label "Email", class: "control-label" %>
+              <%= f.email_field :email, {autofocus: true, class: "form-control", required: true} %>
+            </div>
+            <div class="form-group text-center">
+              <%= f.submit "Send me reset password instructions", {class: "btn btn-primary btn-bg"} %>
+            </div>
+          <% end %>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="login-wrapper-footer" class="text-center">
+  <div class="container text-center">
+    <%= render "devise/shared/links" %>
+  </div
+</div>

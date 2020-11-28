@@ -1,0 +1,40 @@
+<% unless flash.empty? %>
+
+  <% # add bootstrap alert classes
+    alert_classes = {'alert' => 'alert-warning',
+      'notice' => 'alert-info',
+      'error' => 'alert-danger',
+      'success' => 'alert-success'}
+
+    # check if we need a container class
+    container = ''
+    if current_user
+      if defined?(context).nil?
+        container = 'container-fluid'
+      end
+    end
+  %>
+  <% unless container.blank? %>
+    <div class="<%= container %>">
+  <% end %>
+    <div class="messages">
+      <% flash.each do |k, v| %>
+        <% if alert_classes.has_key? k %>
+          <div class="alert <%= alert_classes[k] %>">
+            <% if v.acts_like?('string') %>
+              <%= v %>
+            <% else %>
+              <ul>
+                <% v.each do |m| %>
+                  <li><%= m %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% unless container.blank? %>
+    </div>
+  <% end %>
+<% end %>

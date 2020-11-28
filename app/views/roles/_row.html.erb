@@ -1,0 +1,29 @@
+<% unless roles.blank? %>
+  <% roles.each do |r| %>
+  <tr id=<%= r.id %> >
+    <td><%= r.id %></td>
+    <td><%= r.name %></td>
+    <td><%= r.description %></td>
+
+    <td style="text-align:center">
+      <div>
+        <%= link_to 'Show', role_path(r),  {remote: true,
+          'data-target' => '#modal-window',
+          class: 'btn btn-primary btn-sm'} %>
+          <%= link_to "Edit",  edit_role_path(r),  {
+            remote: true,
+            'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+
+        <%= link_to "Permissions", role_update_permissions_path(r.id), {
+            remote: true,
+            'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+      </div>
+    </td>
+
+    <td>
+      Created at <%= r.created_at.to_s(:medium) %> by <%= r.created_by %><br>
+      Updated at <%= r.updated_at.to_s(:medium) %> by <%= r.updated_by %>
+    </td>
+  </tr>
+  <% end %>
+<% end %>

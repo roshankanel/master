@@ -1,0 +1,10 @@
+var contents =
+  "<%= escape_javascript(render partial: 'items/form', locals: {url: items_path, submit_label: 'Create', heading_prefix: 'Add', method: 'post'}) %>";
+
+$("#modal-window").modal({backdrop: 'static', keyboard: false});
+$("#modal-window").on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var action = button.data('action');
+})
+
+$("#modal-window").html(contents);

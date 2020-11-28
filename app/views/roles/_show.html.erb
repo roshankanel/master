@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Role: <%= @role.name %></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div>
+      <ol style="list-style-type: inherit;"">
+        <li> <p> <%= @role.description %></p></li>
+        <li>  <p>Created at: <%= @role.created_at.to_s(:medium) %> by <%= @role.created_by %></p> </li>
+        <li>  <p>Updated at: <%= @role.updated_at.to_s(:medium) %> by <%= @role.updated_by %></p> </li>
+      </ol>
+    </div>
+
+    <div class="modal-body scrollable">
+      <div class="form-group" >
+        <h3>Permission(s)</h3>
+        <!-- Nav tabs -->
+        <div class="col-sm-3">
+          <div class="nav tabs-left RolesHeader" role="tablist" id ="myTab">
+            <% perms_cnt = 0 %>
+            <% @perm_groups.each do |grp, perms|%>
+              <% unless perms.blank? %>
+                <% grp_name = grp.delete(' ') %>
+                <!-- Deleting special character -->
+                <% grp_name.gsub!(/[^0-9A-Za-z]/, '') unless grp_name.blank? %>
+                <div class="nav-item RolesSubHeader">
+                  <a class="nav-link" data-toggle="tab" href="#panel-group-<%= grp_name %>"
+                    role="tab" id="<%= grp_name %>"><%= grp %></a>
+                </div>
+                <% perms_cnt = perms_cnt + perms.count %>
+              <% end %>
+            <% end %>
+            <% if perms_cnt > 0 %>
+              <div class="nav-item RolesSubHeader">
+                <a class="nav-link active" data-toggle="tab" href="#panel-all"
+                  role="tab" id="All"> All</a>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <!-- Tab panels -->
+        <div class="col-md-8">
+          <div class="tab-content">
+            <% @perm_groups.each do |g, perms|%>
+              <% grp_class = g.delete(' ') unless g.blank? %>
+              <!-- Deleting special character -->
+              <% grp_class.gsub!(/[^0-9A-Za-z]/, '') unless g.blank? %>
+              <div id="panel-group-<%= grp_class %>" class="tab-pane fade" role="tabpanel">
+                <% perms.each do |perm| %>
+                  <% checked_flag = @existing_perms.index(perm.id).nil? ? false : true %>
+                  <% if checked_flag %>
+                    <div class="col-md-4">
+                      <span class="fa fa-check-square" title="<%= perm.name %>" ></span>
+                      <%= label perm.name, perm.name, class: "perms-label" %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+            <div id="panel-all" class="tab-pane fade in active" role="tabpanel">
+              <% @permissions.each do |perm| %>
+                <% checked_flag = @existing_perms.index(perm.id).nil? ? false : true %>
+                <% if checked_flag %>
+                  <div class="col-md-4">
+                    <span class="fa fa-check-square" title="<%= perm.name %>" ></span>
+                    <%= label perm.name, perm.name, class: "perms-label" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="actions text-center">
+        <%= button_tag 'Close', {class: "btn btn-default", "data-dismiss" => "modal"} %>
+      </div>
+    </div>
+  </div>
+</div>

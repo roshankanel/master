@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PresQuote</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+    <% if current_user %>
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+      <!-- Fixed horizotnal menu bar  -->
+      <nav class="navbar navbar-expand-lg navbar-light navbar-bgcolor">
+          <div id="main">
+            <button class="openbtn">☰</button>
+          </div>
+          <%#= link_to "#{current_user.first_name}'s Profile", user_path(current_user),'class' => 'btn navbar-toggle' %>
+
+          <div class="ml-auto">
+            <%= link_to "#{current_user.first_name}'s Profile", nil, method: 'post', class: "btn btn-info" %>
+            <%= link_to 'Sign Out', destroy_user_session_path, method: 'delete', class: "btn btn-success" %>
+          </div>
+      </nav>
+    <% end %>
+
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <%= render partial: 'layouts/navigation' %>
+      <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+    </div>
+
+    <div id="modal-window" class="modal fade" tabindex="-1"; role="dialog" aria-labelledby="PTP Master Static Pricing" aria-hidden="true">
+    </div>
+    <%= yield %>
+
+  </body>
+</html>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.openbtn').on('click', function(){
+      openNav();
+    });
+
+    $('.closebtn').on('click', function(){
+      closeNav();
+    });
+  });
+
+  function openNav() {
+    $('#mySidebar').css('width', '15%');
+    $('#main').css('marginLeft',  "15%");
+    $('.openbtn').hide();
+  }
+
+  function closeNav() {
+    $('#mySidebar').css('width', '0%');
+    $('#main').css('marginLeft',  "0%");
+    $('.openbtn').show();
+  }
+
+</script>

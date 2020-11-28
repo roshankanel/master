@@ -1,0 +1,102 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ /*Set the page to be 100% for the nav menu to work properly*/
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+html, body {
+  height: 100%;
+}
+
+h1, h2, h3{margin-top:10px;}
+h1{font-size:24px;}
+h2{font-size:22px;}
+h3{font-size:20px;}
+
+
+.center {
+  width: 100%;
+  text-align: center;
+}
+
+
+.navbar-bgcolor{
+  background-color: #e3f2fd;
+  margin-bottom: 0px;
+}
+.font-weight-bold {
+  font-weight: bold;
+}
+
+/*Set the background color so nav menu doesn't peek through*/
+div.canvas div.container-fluid{background-color: #FFF;}
+
+/* Modal */
+.modal .row.content-body{padding-top:0.5em; padding-bottom:0.5em;}
+.modal.in{display: block!important;}
+.modal-body.scrollable{overflow-y:scroll; overflow-x:visible; max-height:550px;}
+.modal-footer{clear:both;}
+.modal-footer .confirm-delete-pane{padding-top:15px;}
+.modal-dialog.autoclose .modal-header button.close,
+.modal-dialog.autoclose .modal-footer .actions{display:none;}
+
+.modal-xl {
+  width: 95%;
+  max-width:1200px;
+ }
+
+ /* Login pages */
+ #login-wrapper{background-color:#000;
+  min-height: 10vh;}
+ #login .shared-links{margin-top:10px;}
+ #login-wrapper-footer{background-color:#000;
+  min-height: 10vh; position: absolute;
+  bottom: 0; left: 0; width: 100%}
+
+
+  /* Login pages */
+  #login .container #login-row #login-column #login-box {
+    margin-top: 20px;
+    max-width: 600px;
+    height: 400px;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+  }
+  #signup .container #login-row #login-column #login-box {
+    margin-top: 10px;
+    max-width: 600px;
+    height: 600px;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+  }
+  #login .container #login-row #login-column #login-box #login-form {
+    padding: 20px;
+  }
+  #login .container #login-row #login-column #login-box #login-form #register-link {
+    margin-top: -85px;
+  }
+
+
+  /* Forms */
+  .form-group.required .control-label:after,
+  .form-group.required label:after,
+  label.required:after{content:" *"; color:red;}
+  .mandatory{color:red;}
+
+  /* Show Views */
+  .field-group-inline{display:block; min-height: 34px; overflow:auto; margin-bottom:15px;}
+  form .field-group-inline{overflow:visible;}
+  .field-group-inline div.field-label{font-weight:bold; display:inline-block; text-align:right;}
+  .field-group-inline div.field-label-left{margin:0.2em 1em;display:inline-block; text-align:left;}

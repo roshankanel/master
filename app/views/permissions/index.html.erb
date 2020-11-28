@@ -1,0 +1,66 @@
+<!-- This index page shows the summary of all permissions -->
+<div class="container-fluid">
+  <%= form_tag(permissions_path, method: 'get', id: 'search_permission') do |f| %>
+    <h1 class="page-header">
+      Permissions
+      <div>
+         <%# if (policy(Permission).create?) %>
+          <%= link_to "Add Permission", new_permission_path,
+            {'class' => 'btn btn-success', 'remote' => true,
+            'data-target' => '#modal-window', 'id' => 'Add_btn'} %>
+        <%# <% end %>
+      </div>
+    </h1>
+    <div class="row">
+      <div class="col-sm-2">
+        <%= select_tag :group_name, options_for_select(@permission_grps,
+          params[:group_name]), {prompt: "Group Name", class: 'form-control selectpicker', :'data-live-search' => true} %>
+      </div>
+      <div class="col-sm-2">
+        <%= search_field_tag :name, nil, class: 'form-control',
+        placeholder: 'Name', value: params[:name] %>
+      </div>
+      <div class="col-sm-3">
+        <%= search_field_tag :description, nil, class: 'form-control',
+        placeholder: 'Description', value: params[:description] %>
+      </div>
+      <div class="col-md-2">
+        <%= submit_tag "Submit", class: 'btn btn-primary', :name => "submit",
+          id: 'submit_btn' %>
+        <input type="button" value="Clear" id="clear_filter"
+          class="btn btn-danger btn-md">
+      </div>
+    </div>
+  <% end %>
+  <br>
+  <% unless @permissions.blank? %>
+    <table class="table table-bordered table-hover table-striped" id="tblItem">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Group</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Action(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "row",  locals: { permissions: @permissions} %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('#tblItem').DataTable();
+
+  $('#clear_filter').click(function() {
+    $("#group_name").val($("#group_name option:first").val());
+    $("#name").val('');
+    $("#description").val('');
+  });
+});
+</script>

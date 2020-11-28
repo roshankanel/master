@@ -1,0 +1,9 @@
+var contents = "<%= escape_javascript(render partial: 'users/show_roles', locals: {url: edit_role_path, submit_label: 'Edit', heading_prefix: 'Edit', method: 'patch'}) %>";
+
+$("#modal-window").modal();
+$("#modal-window").on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var action = button.data('action');
+})
+
+$("#modal-window").html(contents);

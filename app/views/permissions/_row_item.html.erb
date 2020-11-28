@@ -1,0 +1,19 @@
+<%# this is trigger only after either update or show %>
+<% unless permission.blank? %>
+  <tr style='background-color: #d4edda;' id=<%= permission.id %> >
+    <td><%= permission.id %></td>
+    <td><%= permission.group_name %></td>
+    <td><%= permission.name %></td>
+    <td><%= permission.description %></td>
+    <td style="text-align:center">
+      <div>
+        <%= link_to 'Show', permission_path(permission),  {remote: true,
+          'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'} %>
+        <%# if policy(Permission).update? %>
+          <%= link_to "Edit",  edit_permission_path(permission),  {
+              remote: true, 'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+        <%# end %>
+      </div>
+    </td>
+  </tr>
+  <% end %>

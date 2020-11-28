@@ -1,0 +1,9 @@
+var contents = "<%= escape_javascript(render 'roles/show') %>";
+
+$("#modal-window").modal();
+$("#modal-window").on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var action = button.data('action');
+})
+
+$("#modal-window").html(contents);

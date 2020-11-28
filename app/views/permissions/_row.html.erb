@@ -1,0 +1,22 @@
+<% unless permissions.blank? %>
+  <% permissions.each do |cl| %>
+  <tr id=<%= cl.id %> >
+    <td><%= cl.id %></td>
+    <td><%= cl.group_name %></td>
+    <td><%= cl.name %></td>
+    <td><%= cl.description %></td>
+    <td style="text-align:center">
+      <div>
+        <%= link_to 'Show', permission_path(cl),  {remote: true,
+          'data-target' => '#modal-window',
+          class: 'btn btn-primary btn-sm'} %>
+        <%# if policy(Permission).update? %>
+          <%= link_to "Edit",  edit_permission_path(cl),  {
+              remote: true,
+              'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+        <%# end %>
+      </div>
+    </td>
+  </tr>
+  <% end %>
+<% end %>

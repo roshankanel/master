@@ -1,0 +1,25 @@
+<% unless items.blank? %>
+  <% items.each do |cl| %>
+  <tr id=<%= cl.id %> >
+    <td><%= cl.id %></td>
+    <td><%= cl.item_product %></td>
+    <td><%= cl.item_number %></td>
+    <td><%= cl.finished_size.blank? ? "" : cl.finished_size %></td>
+    <td style="text-align:right" ><%= cl.setup_price %></td>
+    <td style="text-align:right"><%= cl.unit_price %></td>
+    <td><%= cl.created_by %></td>
+    <td><%= cl.updated_by %></td>
+    <td style="text-align:center">
+      <div>
+        <%= link_to 'Show',  item_path(cl), {
+          remote: true, "data-target" => "#modal-window",
+          class: "btn btn-sm btn-primary"} %>
+
+        <%= link_to 'Edit', edit_item_path(cl), {
+          remote: true, "data-target" => "#modal-window",
+          class: "btn btn-sm btn-warning"} %>
+      </div>
+    </td>
+  </tr>
+  <% end %>
+<% end %>

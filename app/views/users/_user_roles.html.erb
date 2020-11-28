@@ -1,0 +1,28 @@
+<tr id=<%=allroles.id %> >
+  <td><%= allroles.id %></td>
+  <td>
+    <% if params[:reporting_group_id].blank? %>
+      <%= check_box_tag "user[role_ids][]", allroles.id, false, class: "cbox" %>
+    <% else %>
+      <%= check_box_tag "user[role_ids][]", allroles.id,
+      (checked = true if  @location_roles[params[:reporting_group_id].to_i][:roles].keys.include? allroles.id), class: "cbox" %>
+    <% end %>
+    <%= label_tag allroles.name, allroles.name, class: "control-label" %>
+  </td>
+  <td>
+
+   <div><input name="deadline" placeholder="Deadline" id="myflatpickr" required></div>
+  </td>
+</tr>
+<script type="text/javascript">
+        flatpickr("#myflatpickr", {});
+        </script>
+
+
+
+
+<script>
+  {
+    wrap: true
+}
+</script>

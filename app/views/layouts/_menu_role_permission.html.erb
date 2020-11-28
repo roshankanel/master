@@ -1,0 +1,11 @@
+<li class="dropdown <%= @active_menu == "roles" ? "active" : "" %>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+    role="button" aria-haspopup="true" aria-expanded="false">
+      Roles & Permissions
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu navmenu-nav">
+    <li><%= link_to 'Role Management', roles_path %></li>
+    <li><%= link_to 'Permission Management', permissions_path %></li>
+  </ul>
+</li>
