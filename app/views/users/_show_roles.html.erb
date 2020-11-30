@@ -6,8 +6,10 @@
       <% new_role = heading_prefix == 'Edit' ? false : true %>
       <%= hidden_field_tag("user[new_role]", new_role) %>
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h2><%= heading_prefix %> Location Roles<%= heading_prefix == 'Edit' ? ": #{@user.full_name}" : '' %></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <!-- <%#= render partial: 'layouts/flash_messages', locals: {:context => :modal}  %> -->
       <div class="modal-body">
