@@ -4,7 +4,7 @@
       html: { class: "edit_user_roles form-horizontal", id: "edit_user_roles_#{@user.id}" } do |f| %>
       <%#= f.hidden_field :lock_version %>
       <% new_role = heading_prefix == 'Edit' ? false : true %>
-      <%= hidden_field_tag("user[new_role]", new_role) %>
+      <%#= hidden_field_tag("user[new_role]", new_role) %>
       <div class="modal-header">
         <h2><%= heading_prefix %> Location Roles<%= heading_prefix == 'Edit' ? ": #{@user.full_name}" : '' %></h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,7 +24,7 @@
           </thead>
           <tbody>
           <span class="fa fa-calendar-alt"></span>
-            <%= render partial: "user_roles", collection: @allroles, as: :allroles %>
+            <%= render partial: "user_roles", locals: {allroles: @allroles} %>
           </tbody>
         </table>
 

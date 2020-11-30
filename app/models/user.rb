@@ -8,6 +8,11 @@ class User < ApplicationRecord
   after_create :send_admin_mail
   has_many :user_role_locations
 
+  # after_create :set_default_role
+  mattr_accessor :add_message
+  mattr_accessor :updated_message
+  mattr_accessor :remove_message
+
   def login
    @login || self.email
   end
@@ -85,13 +90,8 @@ class User < ApplicationRecord
     end
   end
 
- # Return the reporting groups (and child groups) that this user has permission
- # to. Takes the permission name as a string to query
- # If user is in 'global' reporting group just return all rep grps
- # If all_levels is true, will return reporting groups from higher and lower hierarchy levels
  def has_permission_where permission, full_object = false, all_levels = false
    p_id = Permission.find_by(name: permission).id
-   # global_id = ReportingGroup.find_by(name: "Global").id
 
    # FYI in this case URL = user role locations
    urls = User
@@ -118,5 +118,104 @@ class User < ApplicationRecord
   def inactive_message
     approved? ? super : :not_approved
   end
+
+  # Role_ids is a hash where key is equal to role_id and value is equal to end_date
+  # or nil if not end_dated
+  def save_user_roles role_ids = [], end_dates = [], full_name
+
+    unless role_ids.blank?
+      loc = self.user_role_locations.where("end_date is ? OR end_date > ?", nil, Time.now).order(:role_id)
+      selected_roles = Role.where(:id => role_ids)
+      selected_roles_id_array = []
+      existing_role_id_array = []
+      new_role_id_array = []
+      new_roles_end_date = {}
+      allRoles = Role.all.to_a
+      record_removed = ""
+      record_added = ""
+      record_updated = ""
+
+      role_ids.each do |r|
+        unless r.blank?
+          new_roles_end_date[r.to_s] = end_dates[r.to_s]
+        end
+      end
+
+      selected_roles.each do |r|
+        selected_roles_id_array << r.id
+      end
+
+      loc.each do |l|
+
+        existing_role_id_array << l.role_id
+        match_role = selected_roles_id_array.any? {|rid| rid == l.role_id}
+        unless l.end_date.blank?
+          match_end_date = (new_roles_end_date[l.role_id.to_s] == (l.end_date.to_time).strftime("%d/%m/%Y %H:%M"))
+        else
+          match_end_date = (new_roles_end_date[l.role_id.to_s] == l.end_date)
+        end
+
+        current_role = allRoles.detect{|c| c.id == l.role_id}
+        if match_role
+          # leave only or check for end_date to update
+          if new_roles_end_date[l.role_id.to_s].blank?
+            l.end_date = nil
+          else
+            l.end_date = DateTime.parse new_roles_end_date[l.role_id.to_s].to_s
+          end
+
+          unless match_end_date
+            record_updated = record_updated.blank? ? "'" + current_role.name.to_s + "'" : record_updated + ", '" + current_role.name.to_s + "'"
+          end
+          l.updated_by = full_name
+          l.save
+
+        else
+          record_removed = record_removed.blank? ? "'" + current_role.name.to_s + "'" : record_removed + ", '" + current_role.name.to_s + "'"
+          l.destroy
+        end
+      end
+
+      if record_removed.include? ","
+        record_removed = record_removed + " roles removed for '#{self.full_name}'"
+      elsif !record_removed.blank?
+        record_removed = record_removed + " role removed for '#{self.full_name}'"
+      end
+
+      if record_updated.include? ","
+        record_updated = record_updated + " roles successfully updated for '#{self.full_name}'"
+      elsif !record_updated.blank?
+        record_updated = record_updated + " role successfully updated for '#{self.full_name}'"
+      end
+
+      new_role_id_array = (selected_roles_id_array - existing_role_id_array).uniq
+      new_role_id_array.each do |r|
+        selected_end_date = nil
+        current_role = allRoles.detect{|c| c.id == r}
+        if new_roles_end_date[r.to_s].blank? == false
+          selected_end_date =  DateTime.parse new_roles_end_date[r.to_s].to_s
+        end
+
+        rl = UserRoleLocation.create!(:user_id => self.id,
+            :role_id => r ,
+            :end_date => selected_end_date,
+            :created_by => full_name,
+            :updated_by => full_name
+            )
+
+        record_added = record_added.blank? ? "'" + current_role.name.to_s + "'" : record_added + ", '" + current_role.name.to_s + "'"
+      end
+
+      if record_added.include? ","
+        # record_added = "Added " + record_added + " Roles"
+        record_added = record_added + " roles successfully added for '#{self.full_name}'"
+      elsif !record_added.blank?
+        record_added = record_added + " role successfully added for '#{self.full_name}'"
+      end
+		end
+    self.add_message = record_added.blank? ? "" : record_added
+    self.remove_message = record_removed.blank? ? "" : record_removed
+    self.updated_message = record_updated.blank? ? "" : record_updated
+	end
 
 end

@@ -44,7 +44,6 @@ class UsersController < ApplicationController
     @allroles = Role.all
     @existing_roles = @user.has_roles? ? @user.user_role_locations.where("end_date is ? OR end_date > (?)",
     nil, DateTime.now.to_date).order(:id).pluck(:role_id, :end_date) : []
-
     # @location_roles = @user.has_roles? ? @user.get_user_role_locations : {}
     Role.select(:id, :name).all.map{|r| @role_names[r.id] = r.name}
   end
@@ -58,11 +57,43 @@ class UsersController < ApplicationController
     end
   end
 
+  # Find the role id first
+# Based on role_id delete eveything from role_permissions table
+# Add all the permission checked in the forms to the role_permissions table
+def save_roles
+  @user = User.find(params[:id])
+  # authorize @user
+  if user_role_params[:role_ids]
+    if @user.save_user_roles(user_role_params[:role_ids], user_role_params[:end_dates], current_user.full_name)
+      flash.now[:context] = "inline"
+      flash.now[:success] = []
+      flash.now[:success] << @user.add_message unless @user.add_message.blank?
+      flash.now[:success] << @user.remove_message unless @user.remove_message.blank?
+      flash.now[:success] << @user.updated_message unless @user.updated_message.blank?
+      flash.now[:new_location] = user_role_params[:new_location]
+      render "row"
+    else
+      flash.now[:error] = @user.errors.full_messages
+      @error_msg = @user.errors.messages
+      render "edit_user_roles"
+    end
+  else
+    # TODO flash error we need location at least yo.
+  end
+  # redirect_to user_locations_path @user
+end
+
 
   private
 
     # Whitelist the parameters we know/expect for search, array must be at the end of the list
     def search_user_params
       params.permit(:first_name, :last_name, :email, :approved)
+    end
+
+    def user_role_params
+      roles = []
+      Role.all.pluck(:id).map{|r| roles << r.to_s}
+      params.require(:user).permit(:name, :user_id, :lock_version, :reporting_group_id, :new_location, end_dates: [roles], role_ids: [])
     end
 end

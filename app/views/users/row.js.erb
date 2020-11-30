@@ -1,0 +1,13 @@
+// close the modal
+$("#modal-window").modal("hide");
+$(".row.row-msg").fadeOut().remove();
+$(".messages").fadeOut().remove();
+$('.modal').modal('hide');
+var item = <%= @user.to_json.html_safe %>;
+$("#statusModal-<%= @user.id %>").modal("hide");
+$(".row.row-msg").fadeOut().remove();
+$(".messages").fadeOut().remove();
+<% if controller.action_name == "save_roles" %>
+  $('#tblItem').after("<%= escape_javascript(render partial: 'layouts/flash_messages', locals: { :context => :inline} ) %>");
+    <%#= escape_javascript('layouts/flash_messages', locals: {:context => :inline}) %>
+<% end %>

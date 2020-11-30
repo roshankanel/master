@@ -45,16 +45,14 @@
       <%= render partial: "row",  locals: { users: @users} %>
     </tbody>
   </table>
-
-<div>
-
+</div>
   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
   <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function() {
     $('#tblItem').DataTable();
   });
 
-  </script>
+</script>

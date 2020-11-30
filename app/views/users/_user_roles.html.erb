@@ -1,19 +1,37 @@
-<tr id=<%=allroles.id %> >
-  <td><%= allroles.id %></td>
-  <td>
-    <% if params[:reporting_group_id].blank? %>
-      <%= check_box_tag "user[role_ids][]", allroles.id, false, class: "cbox" %>
-    <% else %>
-      <%= check_box_tag "user[role_ids][]", allroles.id,
-      (checked = true if  @location_roles[params[:reporting_group_id].to_i][:roles].keys.include? allroles.id), class: "cbox" %>
+  <% test = [] %>
+  <% unless allroles.blank? %>
+    <% allroles.each do |ar| %>
+      <tr id=<%=ar.id %> >
+        <td><%= ar.id %></td>
+        <% unless  @existing_roles.blank? %>
+          <% @existing_roles.each do |er| %>
+            <% if er[0] == ar.id %>
+              <% test << ar.id %>
+              <td>
+                <%= check_box_tag "user[role_ids][]", ar.id, (checked = true if er[0] == ar.id), class: "cbox" %>
+                <%= label_tag ar.name, ar.name, class: "control-label" %>
+              </td>
+              <td>
+                <%= text_field_tag("user[end_dates][#{ar.id}]",
+                                  er[1], class: "form-control myflatpickr") %>
+              </td>
+            <% end %>
+        <% end %>
+      <% end %>
+      <% unless  test.include? ar.id %>
+        <td>
+          <%= check_box_tag "user[role_ids][]", ar.id, false, class: "cbox" %>
+          <%= label_tag ar.name, ar.name, class: "control-label" %>
+        </td>
+        <td>
+          <%= text_field_tag("user[end_dates][#{ar.id}]",
+                            nil, class: "form-control myflatpickr") %>
+        </td>
+      <% end %>
+    </tr>
     <% end %>
-    <%= label_tag allroles.name, allroles.name, class: "control-label" %>
-  </td>
-  <td>
+  <% end %>
 
-   <div><input name="deadline" placeholder="Deadline" id="myflatpickr" required></div>
-  </td>
-</tr>
 <script type="text/javascript">
-        flatpickr("#myflatpickr", {});
+  flatpickr(".myflatpickr", {});
 </script>
