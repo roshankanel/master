@@ -3,7 +3,6 @@
     <h1 class="page-header">
       Users
     </h1>
-    <hr>
     <div class="row">
       <div class="col-sm-2">
         <%= search_field_tag :first_name, nil, class: 'form-control',
@@ -21,7 +20,6 @@
         <%= select_tag :approved, options_for_select(['True', 'False'],
         params[:approved].to_s), {prompt: "Approved", class: 'form-control selectpicker'} %>
       </div>
-
       <div class="col-sm-2">
           <%= submit_tag "Submit", class: 'btn btn-primary btn-md', :name => nil,
             id: 'log_submit_btn' %>

@@ -14,38 +14,13 @@
         <%= link_to "Roles",  show_roles_path(cl),  {
           remote: true,
           'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
-        <% if cl.approved == 1 %>
-          <%= button_tag "Disapprove", {class: 'btn btn-sm btn-danger', id: 'btnStatus'} %>
-          <%= link_to "Disapprove", user_approve_path(cl.id), 'data-target': "#myModal", 'data-toggle': "modal" %>
-        <% else %>
-          <%= button_tag "Approve", {class: 'btn btn-sm btn-danger', id: 'btnStatus'} %>
-          <%= link_to "Approve", nil, {class: 'btn btn-sm btn-danger', 'data-id': "#{cl.id}", 'data-target': "#myModal", 'data-toggle': "modal"} %>
-        <% end %>
+        <%= render partial: "approved",  locals: {data: cl} %>
       </div>
     </td>
   </tr>
   <% end %>
 <% end %>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header btn-primary">
-        <h4> <class="modal-title" id="myModalLabel">Approve Confirmation</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure about changing the status?
-      </div>
-      <div class="modal-footer">
-        <%= link_to "Yes", nil, {class: 'btn btn-sm btn-danger',   remote: true, id: 'btnYes'} %>
-        <%= link_to "No", "javascript:void(0)", {class: 'btn btn-sm btn-warning','data-dismiss': "modal"} %>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script type="text/javascript">
 $(document).ready(function() {
