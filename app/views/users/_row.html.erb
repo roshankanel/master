@@ -1,30 +1,21 @@
-<% user_id = 0 %>
 <% unless users.blank? %>
   <% users.each do |cl| %>
-  <tr id=<%= cl.id %> >
-    <td><%= cl.id %></td>
-    <td><%= cl.first_name %></td>
-    <td><%= cl.last_name %></td>
-    <td><%= cl.email %></td>
-    <td><%= cl.approved == 1? "True" : "False" %></td>
-    <td><%= cl.confirmed_at %></td>
-    <td style="text-align:center">
-      <div>
-        <%= link_to 'Show', user_path(cl),'class' => 'btn btn-primary btn-sm' %>
-        <%= link_to "Roles",  show_roles_path(cl),  {
-          remote: true,
-          'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
-        <%= render partial: "approved",  locals: {data: cl} %>
-      </div>
-    </td>
-  </tr>
+    <tr id=<%= cl.id %> >
+      <td><%= cl.id %></td>
+      <td><%= cl.first_name %></td>
+      <td><%= cl.last_name %></td>
+      <td><%= cl.email %></td>
+      <td><%= cl.approved == 1? "True" : "False" %></td>
+      <td><%= cl.confirmed_at %></td>
+      <td style="text-align:center">
+        <div>
+          <%= link_to 'Show', user_path(cl),'class' => 'btn btn-primary btn-sm' %>
+          <%= link_to "Roles",  show_roles_path(cl),  {
+            remote: true,
+            'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+          <%= render partial: "approved",  locals: {data: cl} %>
+        </div>
+      </td>
+    </tr>
   <% end %>
 <% end %>
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#btnStatus').click(function() {
-  });
-});
-</script>

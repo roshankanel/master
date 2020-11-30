@@ -50,8 +50,14 @@ class UsersController < ApplicationController
   end
 
   def update_approve
-    byebug
+    @user = User.find(params[:id])
+    if @user.approved == 0 then
+      @user.update(approved: 1)
+    else
+      @user.update(approved: 0)
+    end
   end
+
 
   private
 

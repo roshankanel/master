@@ -1,0 +1,19 @@
+<% unless user.blank? %>
+  <tr id=<%= user.id %> >
+    <td><%= user.id %></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.approved == 1? "True" : "False" %></td>
+    <td><%= user.confirmed_at %></td>
+    <td style="text-align:center" id=approved-<%= user.id%>
+      <div>
+        <%= link_to 'Show', user_path(user), 'class' => 'btn btn-primary btn-sm' %>
+        <%= link_to "Roles",  show_roles_path(user),  {
+          remote: true,
+          'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+        <%= render partial: "approved",  locals: {data: user} %>
+      </div>
+    </td>
+  </tr>
+<% end %>

@@ -4,17 +4,17 @@
   <% status = "Disapprove" %>
   <% status_to_change = "Approve" %>
   <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#statusModal-<%= data.id %>">
-    Disapprove
+    Approve
   </button>
 <% else %>
   <% status = "Approve" %>
   <% status_to_change = "Disapprove" %>
   <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#statusModal-<%= data.id %>">
-    Approve
+    Diapprove
   </button>
 <% end %>
 
-<div class="modal fade" id="statusModal-<%= data.id %>"" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="statusModal-<%= data.id %>" tabindex="-1" role="dialog" aria-labelledby="Set Status" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header btn-primary">
@@ -27,9 +27,14 @@
         Are you sure about changing the status from <b><%= status %> </b> to <b><%= status_to_change %></b>?
       </div>
       <div class="modal-footer">
-        <%= link_to "Yes", user_approve_path(data.id, data.approved), {class: 'btn btn-sm btn-danger', remote: true, id: 'btnYes', method: "post"} %>
+        <%= link_to "Yes", user_approve_path(data.id), {class: 'btn btn-sm btn-danger', remote: true, id: 'btnYes', method: "post"} %>
         <%= link_to "No", "javascript:void(0)", {class: 'btn btn-sm btn-warning','data-dismiss': "modal"} %>
       </div>
     </div>
   </div>
 </div>
+
+
+<script>
+  $("#statusModal-<%= data.id %>").appendTo('body');
+</script>
