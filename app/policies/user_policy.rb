@@ -27,6 +27,10 @@ class UserPolicy < ApplicationPolicy
     user_has_permission? 'assign user role'
   end
 
+  def save_roles?
+    user_has_permission? 'assign user role'
+  end
+
   def unlock_user_account?
     user_has_permission? 'unlock user account'
   end
