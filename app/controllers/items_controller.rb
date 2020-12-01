@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   # after_action :verify_authorized, only: [:update, :create, :destroy]
   # after_action :verify_policy_scoped, only: :index
   # skip_after_action :verify_authorized
-  # after_action :verify_authorized, only: [:index, :create, :update, :destroy]
+  after_action :verify_authorized, only: [:index, :create, :update, :destroy]
   before_action :retrieve_item, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # rescue_from ActionController::UnknownFormat, with: :Unknown_Format
@@ -16,6 +16,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
+    authorize @items
     unless search_item_params.blank?
       @items = Item.all
       item_number = search_item_params["item_number"] unless search_item_params["item_number"].blank?
@@ -50,7 +51,7 @@ class ItemsController < ApplicationController
   # Create saves the items
   def create
     @item = Item.new(item_params)
-    # if authorize @permission
+    if authorize @item
       @item.set_modifiers current_user
       if @item.save
         flash[:context] = "inline"
@@ -63,7 +64,7 @@ class ItemsController < ApplicationController
         @error_msg = @item.errors.messages
         render 'new'
       end
-    # end
+    end
   end
 
 def show
@@ -98,7 +99,7 @@ end
 
 def update
   @item = Item.find(params[:id])
-  # if authorize @permission
+  if authorize @item
     changed = @item.contains_changes?(item_params)
     @item.set_modifiers current_user if changed
     if changed && @item.update(item_params)
@@ -112,18 +113,18 @@ def update
       @error_msg = @item.errors.messages
       render 'edit'
     end
-  # end
+  end
 end
 
 # Destroy deletes the permission record
   def destroy
     @item = Item.find(params[:id])
-    # if authorize @permission
-    if @item.destroy
-      flash.now[:notice] = "Permission '#{@item.item_number}' successfully deleted."
-      render 'row'
+    if authorize @item
+      if @item.destroy
+        flash.now[:notice] = "Permission '#{@item.item_number}' successfully deleted."
+        render 'row'
+      end
     end
-    #end
   end
 
   private

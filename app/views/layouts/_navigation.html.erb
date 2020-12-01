@@ -1,18 +1,15 @@
 <% if current_user %>
-
 <!--Side navigation bar  -->
   <!-- <div class="navmenu navmenu-default navmenu-fixed-left offcanvas"> -->
   <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><%= render partial: 'layouts/menu_user' %></li>
-      <li><%= render partial: 'layouts/menu_item' %></li>
-      <li><%= render partial: 'layouts/menu_role_permission' %></li>
-    </ul>
-  </div>
+    <div class="navbar-collapse collapse">
+     <ul class="nav navbar-nav navbar-left">
+       <%= render partial: 'layouts/menu_user' if policy(User).index? %>
+       <%= render partial: 'layouts/menu_item' if policy(Item).index? %>
+       <%= render partial: 'layouts/menu_role_permission' if policy(Role).index? || policy(Permission).index? %>
+     </ul>
+   </div>
 </nav>
+<hr>
+
 <% end %>

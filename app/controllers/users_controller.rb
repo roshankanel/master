@@ -2,13 +2,13 @@ class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action do set_active_main_menu "users" end
     before_action :set_current_user
-
-    # after_action :verify_authorized, only: [:index, :create, :update, :destroy, :update_permissions, :save_permissions]
+    after_action :verify_authorized, only: [:index, :create, :update, :destroy, :update_permissions, :save_permissions]
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActionController::UnknownFormat, with: :Unknown_Format
 
 
   def index
+    authorize User
     @users = User.all
     unless search_user_params.blank?
       @users = User.all
@@ -39,12 +39,12 @@ class UsersController < ApplicationController
 
   def show_roles
     @user = User.find(params[:id])
+    authorize @user
     @users = User.joins(:user_role_locations).where("user_id =? and (end_date is ? or end_date>?) ", params[:id], nil, Date.today)
     @role_names = {}
     @allroles = Role.all
     @existing_roles = @user.has_roles? ? @user.user_role_locations.where("end_date is ? OR end_date > (?)",
-    nil, DateTime.now.to_date).order(:id).pluck(:role_id, :end_date) : []
-    # @location_roles = @user.has_roles? ? @user.get_user_role_locations : {}
+      nil, DateTime.now.to_date).order(:id).pluck(:role_id, :end_date) : []
     Role.select(:id, :name).all.map{|r| @role_names[r.id] = r.name}
   end
 
@@ -57,12 +57,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # Find the role id first
+# Find the role id first
 # Based on role_id delete eveything from role_permissions table
 # Add all the permission checked in the forms to the role_permissions table
 def save_roles
   @user = User.find(params[:id])
-  # authorize @user
+  authorize @user
   if user_role_params[:role_ids]
     if @user.save_user_roles(user_role_params[:role_ids], user_role_params[:end_dates], current_user.full_name)
       flash.now[:context] = "inline"
@@ -78,9 +78,8 @@ def save_roles
       render "edit_user_roles"
     end
   else
-    # TODO flash error we need location at least yo.
+    # TODO flash error
   end
-  # redirect_to user_locations_path @user
 end
 
 

@@ -1,12 +1,15 @@
 modifier = "sys admin - rails seed data"
 
   role_perm = [
-    ["Super User",["approve user", "view user", "assign roles/permission", "view roles/permission", "create client", "update client", "view client", "create item",
-      "update item", "view item", "create role", "update role", "view role",
-      "create permission", "update permission", "view permission"]],
+    ["Super User",["approve user", "read user", "assign user role", "view user details",
+      "create client", "update client", "read client", "view client details", "create item",
+      "update item", "read item", "view item details", "delete item", "create role",
+      "update role", "read role", "view role details", "create permission",
+      "update permission", "read permission", "view permission details"]],
 
-    ["Manager", ["approve user", "view user", "assign roles/permission", "view roles/permission", "create client", "update client", "view client", "create item",
-        "update item", "view item"]],
+    ["Manager", ["approve user", "read user", "view user details", "assign user role",
+        "create client", "update client", "read client", "view client details", "create item",
+        "update item", "read item", "view item details"]],
     ]
 
   role_perm.each do |role, perms|

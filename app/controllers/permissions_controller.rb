@@ -5,7 +5,7 @@ class PermissionsController < ApplicationController
   before_action :authenticate_user!
   before_action do set_active_main_menu "roles" end
   before_action :get_permission_groups, only: [:new, :create, :show, :edit, :update, :destroy]
-  # after_action :verify_authorized, only: [:index, :create, :update, :destroy]
+  after_action :verify_authorized, only: [:index, :create, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActionController::UnknownFormat, with: :Unknown_Format
   rescue_from ActiveRecord::StaleObjectError, with: :stale_object_error
@@ -17,7 +17,7 @@ class PermissionsController < ApplicationController
     else
       @permissions = Permission.all.order(:name)
     end
-    # authorize @permissions
+    authorize @permissions
     @permission_grps = Permission.distinct.pluck(:group_name).reject{|ele| ele.blank?}.sort
 
     if ! search_permission_params.blank?
@@ -64,7 +64,7 @@ class PermissionsController < ApplicationController
   # Create saves the permission
   def create
     @permission = Permission.new(permission_params)
-    # if authorize @permission
+    if authorize @permission
       @permission.set_modifiers current_user
       if @permission.save
         flash[:context] = "inline"
@@ -77,7 +77,7 @@ class PermissionsController < ApplicationController
         @error_msg = @permission.errors.messages
         render 'new'
       end
-    # end
+    end
   end
 
   # Edit modal, gets triggered from within user page
@@ -89,7 +89,7 @@ class PermissionsController < ApplicationController
   # Update saves the permission.
   def update
     @permission = Permission.find(params[:id])
-    # if authorize @permission
+    if authorize @permission
       changed = @permission.contains_changes?(permission_params)
       @permission.set_modifiers current_user if changed
       if changed && @permission.update(permission_params)
@@ -103,14 +103,14 @@ class PermissionsController < ApplicationController
         @error_msg = @permission.errors.messages
         render 'edit'
       end
-    # end
+    end
 
   end
 
   # Destroy deletes the permission record
   def destroy
     @permission = Permission.find(params[:id])
-    # if authorize @permission
+    if authorize @permission
       if @permission.has_permission_been_assigned?
         flash[:context] = "permission"
         flash.now[:error] = "Cannot delete permission as it has already been assigned to a role."
@@ -122,7 +122,7 @@ class PermissionsController < ApplicationController
           render 'row'
         end
       end
-    # end
+    end
   end
 
   # Get all current permission groups

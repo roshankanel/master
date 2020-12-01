@@ -11,3 +11,5 @@ PASSWORD_REGEXPSTR ||= %r{
 }x
 #
 EXPIRE_PASSWORD_AFTER = 180.days   # policy is 180 days
+
+R_SUPER_USER_ID = 1

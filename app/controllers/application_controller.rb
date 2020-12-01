@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-  # include Pundit
+  include Pundit
   # rescue from StandardError MUST be first on the list otherwise it will
   # overide all other resuce froms
   rescue_from StandardError, with: :other_error
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActionController::InvalidAuthenticityToken, with: :invalid_authenticity_token
   protect_from_forgery with: :exception
   # before_action :set_paper_trail_whodunnit
