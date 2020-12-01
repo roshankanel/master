@@ -4,7 +4,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action do set_active_main_menu "items" end
-  # after_action :verify_authorized, only: [:update, :create, :destroy]
   # after_action :verify_policy_scoped, only: :index
   # skip_after_action :verify_authorized
   after_action :verify_authorized, only: [:index, :create, :update, :destroy]
@@ -68,28 +67,7 @@ class ItemsController < ApplicationController
   end
 
 def show
-  @role = Role.find(params[:id])
-    # @roles = Role.paginate(page: params[:page], per_page: 10)
-    @existing_perms_name = Role.find(params[:id]).permissions.collect{|r| r.name}.join ', '
 
-    @permissions = Permission.all.order(:group_name, :name)
-    @existing_perms = Role.find(params[:id]).permissions.pluck(:id)
-    # just get groups with permissions
-    groups = Role.find(params[:id]).permissions.pluck(:group_name).uniq.sort
-    @perm_groups = {"Other" => []}
-    groups.each do |g|
-      @perm_groups[g] = []
-    end
-    @permissions.each do |p|
-      if p.group_name.blank?
-        @perm_groups["Other"] << p
-      else
-        # ignore those without key as they are not to be displayed
-        if @perm_groups.key?(p.group_name)
-          @perm_groups[p.group_name] << p
-        end
-      end
-    end
 end
 
 def edit

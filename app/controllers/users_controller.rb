@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action do set_active_main_menu "users" end
     before_action :set_current_user
-    after_action :verify_authorized, only: [:index, :create, :update, :destroy, :update_permissions, :save_permissions]
+    after_action :verify_authorized, only: [:index, :create, :update, :destroy, :update_approve, :save_roles]
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActionController::UnknownFormat, with: :Unknown_Format
 
@@ -36,6 +36,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
 
   def show_roles
     @user = User.find(params[:id])
@@ -87,7 +90,7 @@ end
 
     # Whitelist the parameters we know/expect for search, array must be at the end of the list
     def search_user_params
-      params.permit(:first_name, :last_name, :email, :approved)
+      params.permit(:id, :first_name, :last_name, :email, :approved)
     end
 
     def user_role_params
