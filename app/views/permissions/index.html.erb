@@ -4,11 +4,12 @@
     <h1 class="page-header">
       Permissions
       <div>
-         <%# if (policy(Permission).create?) %>
+         <% if (policy(Permission).create?) %>
           <%= link_to "Add Permission", new_permission_path,
             {'class' => 'btn btn-success', 'remote' => true,
             'data-target' => '#modal-window', 'id' => 'Add_btn'} %>
-        <%# <% end %>
+            <hr>
+        <%<% end %>
       </div>
     </h1>
     <div class="row">

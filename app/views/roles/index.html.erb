@@ -4,14 +4,16 @@
   </h1>
   <div>
     <div class="col-sm-1">
+      <% if policy(Role).create? %>
         <%= link_to "Add Role", new_role_path,
           {'class' => 'btn btn-success', 'remote' => true,
           'data-target' => '#modal-window', 'id' => 'Add_btn'} %>
+          <hr>
+      <% end %>
+
     </div>
   </div>
-  <br>
-  <br>
-  <hr>
+
   <% unless @roles.blank? %>
     <table class="table table-bordered table-hover table-striped" id="tblItem">
       <thead>

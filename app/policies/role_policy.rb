@@ -14,6 +14,11 @@ class RolePolicy < ApplicationPolicy
     user_has_permission? 'create role'
   end
 
+  def show?
+    # if you want to pass multiple parameters follow it by commas
+    user_has_permission? 'show role details'
+  end
+
   # Only user with 'update role' will have access to update
   def update?
     # if you want to pass multiple parameters follow it by commas

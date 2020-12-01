@@ -3,12 +3,17 @@ class ItemPolicy < ApplicationPolicy
 
   def index?
     # if you want to pass multiple parameters follow it by commas
-    user_has_permission? 'view item'
+    user_has_permission? 'read item'
   end
 
   def create?
     # if you want to pass multiple parameters follow it by commas
     user_has_permission? 'create item'
+  end
+
+  def show?
+    # if you want to pass multiple parameters follow it by commas
+    user_has_permission? 'view item details'
   end
 
   def update?

@@ -7,12 +7,14 @@
     <td><%= permission.description %></td>
     <td style="text-align:center">
       <div>
-        <%= link_to 'Show', permission_path(permission),  {remote: true,
-          'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'} %>
-        <%# if policy(Permission).update? %>
+        <% if policy(Permission).show? %>
+          <%= link_to 'Show', permission_path(permission),  {remote: true,
+            'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'} %>
+        <% end %>
+        <% if policy(Permission).update? %>
           <%= link_to "Edit",  edit_permission_path(permission),  {
               remote: true, 'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
-        <%# end %>
+        <% end %>
       </div>
     </td>
   </tr>

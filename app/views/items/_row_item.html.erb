@@ -11,13 +11,17 @@
   <td><%= item.updated_by %></td>
   <td style="text-align:center">
     <div>
-      <%= link_to 'Show',  item_path(item.id), {
-        remote: true, "data-target" => "#modal-window",
-        class: "btn btn-sm btn-primary"} %>
+      <% if policy(Item).show? %>
+        <%= link_to 'Show',  item_path(item.id), {
+          remote: true, "data-target" => "#modal-window",
+          class: "btn btn-sm btn-primary"} %>
+      <% end %>
 
-      <%= link_to 'Edit', edit_item_path(item.id), {
-        remote: true, "data-target" => "#modal-window",
-        class: "btn btn-sm btn-warning"} %>
+      <% if policy(Item).update? %>
+        <%= link_to 'Edit', edit_item_path(item.id), {
+          remote: true, "data-target" => "#modal-window",
+          class: "btn btn-sm btn-warning"} %>
+      <% end %>
     </div>
   </td>
 </tr>

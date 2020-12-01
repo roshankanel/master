@@ -5,11 +5,14 @@
     </h1>
     <hr>
     <div>
-      <%= link_to "Add Item", new_item_path,
+      <% if policy(Item).create? %>
+        <%= link_to "Add Item", new_item_path,
         {'class' => 'btn btn-success', 'remote' => true,
           'data-target' => '#myModal', 'id' => 'Add_btn'} %>
+        <hr>
+      <% end %>
     </div>
-    <hr>
+
     <div class="row">
       <div class="col-sm-2">
         <%= search_field_tag :item_number, nil, class: 'form-control',

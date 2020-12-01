@@ -8,11 +8,17 @@
     <td><%= user.confirmed_at %></td>
     <td style="text-align:center" id=approved-<%= user.id%>
       <div>
-        <%= link_to 'Show', user_path(user), 'class' => 'btn btn-primary btn-sm' %>
-        <%= link_to "Roles",  show_roles_path(user),  {
-          remote: true,
-          'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
-        <%= render partial: "approved",  locals: {data: user} %>
+        <% if policy(User).show? %>
+          <%= link_to 'Show', user_path(user),'class' => 'btn btn-primary btn-sm' %>
+        <% end %>
+        <% if policy(User).show_roles? %>
+          <%= link_to "Roles", show_roles_path(user),  {
+            remote: true,
+            'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+        <% end %>
+        <% if policy(User).approve_user? %>
+          <%= render partial: "approved",  locals: {data: user} %>
+        <% end %>
       </div>
     </td>
   </tr>

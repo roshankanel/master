@@ -7,7 +7,7 @@ class ApplicationPolicy
   end
 
   # This will check if the individual has role to perform task.
-  def user_has_permission?(permissions, reporting_group_id = nil, hsa_depot_id = nil)
+  def user_has_permission?(permissions)
     # First quick check to see if user is super!
     return true if user_is_super?
 

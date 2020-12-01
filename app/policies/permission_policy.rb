@@ -11,6 +11,11 @@ class PermissionPolicy < ApplicationPolicy
     user_has_permission? 'create permission'
   end
 
+  def show?
+    # if you want to pass multiple parameters follow it by commas
+    user_has_permission? 'show permission details'
+  end
+
   def update?
     # if you want to pass multiple parameters follow it by commas
     user_has_permission? 'update permission'

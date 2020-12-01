@@ -7,16 +7,21 @@
 
   <td style="text-align:center">
     <div>
-      <%= link_to 'Show', role_path(role),  {remote: true,
-        'data-target' => '#modal-window',
-        class: 'btn btn-primary btn-sm'} %>
+      <% if policy(Role).show? %>
+        <%= link_to 'Show', role_path(role),  {remote: true,
+          'data-target' => '#modal-window',
+          class: 'btn btn-primary btn-sm'} %>
+      <% end %>
+      <% if policy(Role).update? %>
         <%= link_to "Edit",  edit_role_path(role),  {
           remote: true,
           'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
-
-      <%= link_to "Permissions", role_update_permissions_path(role), {
-          remote: true,
-          'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+      <% end %>
+      <% if policy(RolePermission).assign_roles? %>
+        <%= link_to "Permissions", role_update_permissions_path(role), {
+            remote: true,
+            'data-target' => '#modal-window', 'class' => 'btn btn-primary btn-sm'} %>
+      <% end %>
     </div>
   </td>
 
