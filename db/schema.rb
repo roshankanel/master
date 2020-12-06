@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 2020_11_23_044957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "permission_logs", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+  end
+
   create_table "permissions", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.text "description", null: false
@@ -23,6 +32,25 @@ ActiveRecord::Schema.define(version: 2020_11_23_044957) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "created_by", limit: 200, null: false
     t.string "updated_by", limit: 200, null: false
+    t.index ["name"], name: "permissions_idx01", unique: true
+  end
+
+  create_table "role_logs", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+  end
+
+  create_table "role_permission_logs", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
   end
 
   create_table "role_permissions", force: :cascade do |t|
@@ -41,6 +69,16 @@ ActiveRecord::Schema.define(version: 2020_11_23_044957) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "created_by", limit: 200, null: false
     t.string "updated_by", limit: 200, null: false
+    t.index ["name"], name: "roles_idx01", unique: true
+  end
+
+  create_table "tbl_item_logs", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
   end
 
   create_table "tbl_items", force: :cascade do |t|
@@ -55,6 +93,16 @@ ActiveRecord::Schema.define(version: 2020_11_23_044957) do
     t.integer "lock_version"
     t.string "created_by", limit: 200, null: false
     t.string "updated_by", limit: 200, null: false
+    t.index ["item_number"], name: "tbl_items_idx01", unique: true
+  end
+
+  create_table "user_role_location_logs", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
   end
 
   create_table "user_role_locations", force: :cascade do |t|

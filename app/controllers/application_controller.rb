@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActionController::InvalidAuthenticityToken, with: :invalid_authenticity_token
   protect_from_forgery with: :exception
-  # before_action :set_paper_trail_whodunnit
+  before_action :set_paper_trail_whodunnit
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?  # testing 1 and 2
 

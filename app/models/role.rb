@@ -5,7 +5,7 @@
 class Role < ApplicationRecord
   include Formatters
 
-  # has_paper_trail versions: { class_name: 'RoleVersion' }
+  has_paper_trail versions: { class_name: 'RoleVersion' }
 
   before_validation(on: [:create, :update]) do
     # self.name = self.name.titleize.strip unless self.name.blank?

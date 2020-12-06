@@ -1,7 +1,7 @@
 # This is the Permission model. It stores all the permission.
 class Permission< ApplicationRecord
   include Formatters
-  # has_paper_trail versions: { class_name: 'PermissionVersion' }
+  has_paper_trail versions: { class_name: 'PermissionVersion' }
 
   before_validation(on: [:create, :update]) do
     #self.name = self.name.downcase.strip unless self.name.blank?

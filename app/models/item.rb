@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   include Formatters
   self.table_name = 'tbl_items'
-
+  has_paper_trail versions: { class_name: 'ItemVersion' }
 
   private
 
@@ -9,5 +9,5 @@ class Item < ApplicationRecord
     # formatting changes vs real data changes when updates occur
     def formatted_fields
       {name: ['strip', 'downcase'], description: ['strip']}
-    end  
+    end
 end
