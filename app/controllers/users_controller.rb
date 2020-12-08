@@ -52,6 +52,7 @@ class UsersController < ApplicationController
   end
 
   def update_approve
+    authorize User
     @user = User.find(params[:id])
     if @user.approved == 0 then
       @user.update(approved: 1)

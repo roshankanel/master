@@ -35,6 +35,10 @@ class UserPolicy < ApplicationPolicy
     user_has_permission? 'unlock user account'
   end
 
+  def update_approve?
+    user_has_permission? 'approve user'
+  end
+
   def approve_user?
     user_has_permission? 'approve user'
   end

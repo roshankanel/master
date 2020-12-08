@@ -9,7 +9,7 @@
     <td style="text-align:center" id=approved-<%= user.id%>
       <div>
         <% if policy(User).show? %>
-        <%= link_to 'Show', user_path(cl), { remote: true, "data-target" => "#modal-window",
+        <%= link_to 'Show', user_path(user), { remote: true, "data-target" => "#modal-window",
           class: "btn btn-sm btn-primary"} %>
         <% end %>
         <% if policy(User).show_roles? %>
