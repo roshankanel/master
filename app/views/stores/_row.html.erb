@@ -19,13 +19,16 @@
     <td style="text-align:right"><%= cl.num_of_drivethru %></td>
     <td style="text-align:center">
       <div>
-        <%= link_to 'Show',  store_path(cl), {
-          remote: true, "data-target" => "#modal-window",
-          class: "btn btn-sm btn-primary"} %>
-
-        <%= link_to 'Edit', edit_store_path(cl), {
+        <% if policy(Store).show? %>
+          <%= link_to 'Show',  store_path(cl), {
+            remote: true, "data-target" => "#modal-window",
+            class: "btn btn-sm btn-primary"} %>
+          <% end %>
+        <% if policy(Store).update? %>
+          <%= link_to 'Edit', edit_store_path(cl), {
           remote: true, "data-target" => "#modal-window",
           class: "btn btn-sm btn-warning"} %>
+        <% end %>
       </div>
     </td>
   </tr>
