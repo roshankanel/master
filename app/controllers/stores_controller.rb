@@ -47,8 +47,11 @@ class StoresController < ApplicationController
 
 ## Add New Store
   def new
+    byebug
     @store = Store.new
     @types = StoreType.all
+    @states = Store.order(:state_region).pluck(:state_region).uniq
+    @status = Store.order(:status).pluck(:status).uniq
     @error_msg = @store.errors.messages
   end
 

@@ -23,16 +23,15 @@
         placeholder: 'City', value: params[:city] %>
       </div>
       <div class="col-sm-2">
-
-        <%= select_tag :state_region, options_from_collection_for_select(@states,"state_region","state_region",
+        <%= select_tag :state_region, options_from_collection_for_select(@states, "state_region", "state_region",
           params[:state_region].to_s), {prompt: "State Region", class: 'form-control selectpicker'} %>
       </div>
       <div class="col-sm-2">
-        <%= select_tag :store_type_id, options_from_collection_for_select(@types,"id","name",
+        <%= select_tag :store_type_id, options_from_collection_for_select(@types,"id", "name",
           params[:store_type_id].to_s), {prompt: "Store Type", class: 'form-control selectpicker'} %>
       </div>
       <div class="col-sm-2">
-        <%= select_tag :status, options_from_collection_for_select(@status,"status","status",
+        <%= select_tag :status, options_from_collection_for_select(@status, "status", "status",
           params[:status].to_s), {prompt: "Store Type", class: 'form-control selectpicker'} %>
       </div>
       <div class="col-sm-2">
