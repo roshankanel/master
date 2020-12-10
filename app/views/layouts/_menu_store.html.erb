@@ -1,0 +1,11 @@
+<li class="dropdown  <%= @active_menu == "users" ? "active" : "" %>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+    role="button" aria-haspopup="true" aria-expanded="false">
+      Store
+  </a>
+  <ul class="dropdown-menu navmenu-nav">
+    <li><%#= link_to 'User Management', users_path if policy(User).index? %></li>
+      <li><%= link_to 'Store Management', stores_path %></li>
+
+  </ul>
+</li>

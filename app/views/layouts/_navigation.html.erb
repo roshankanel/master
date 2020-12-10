@@ -6,6 +6,7 @@
      <ul class="nav navbar-nav navbar-left">
        <%= render partial: 'layouts/menu_user' if policy(User).index? %>
        <%= render partial: 'layouts/menu_item' if policy(Item).index? %>
+       <%= render partial: 'layouts/menu_store' %>
        <%= render partial: 'layouts/menu_role_permission' if policy(Role).index? || policy(Permission).index? %>
      </ul>
    </div>

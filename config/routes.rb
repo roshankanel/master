@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :items
+  resources :stores
   # Role and Permission related
   resources :permissions
   resources :roles do

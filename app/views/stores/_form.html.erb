@@ -1,0 +1,154 @@
+<!-- Modal -->
+<div class="modal-dialog  modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title" id="modalTilte">Add Store</h1>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <%= form_for(:store, remote: true, url: url, method: method, html: {class: 'form-horizontal'}) do |f| %>
+        <%= f.hidden_field :lock_version %>
+          <%= render partial: 'layouts/flash_messages', locals: {:context => :modal}  %>
+          <div class="form-group required <%= @error_msg[:store_num].blank? ? "" : "has-error" %>">
+            <%= f.label :store_num, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :store_num, {autofocus: true, class: "form-control", required: true} %>
+            </div>
+          </div>
+
+          <div class="form-group required <%= @error_msg[:address].blank? ? "" : "has-error" %>">
+            <%= f.label :address, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :address, {class: "form-control", required: true} %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:city].blank? ? "" : "has-error" %>">
+            <%= f.label :city, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :city, {class: "form-control", required: true} %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:postcode].blank? ? "" : "has-error" %>">
+            <%= f.label :postcode, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :postcode, {class: "form-control", required: true} %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:staore_type_id].blank? ? "" : "has-error" %>">
+            <%= f.label :Store_Type, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+            <%= f.select :store_type_id, options_from_collection_for_select(@types,"id","name",
+              :store_type_id), {prompt: "Store Type", class: 'form-control', required: true}%>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:state_region].blank? ? "" : "has-error" %>">
+            <%= f.label :State_Region, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+            <%= f.select :state_region, {'Select State Region': "", 'NSW': "NSW", 'QLD': "QLD", 'NT':"NT", 'WA': "WA", 'ACT': "ACT", 'TAS': "TAS", 'VIC': "VIC", 'SA': "SA", 'QLD South': "QLD South", 'QLD North': "QLD North"}, {class: "form-control", required: true}%>
+            </div>
+          </div>
+
+          <div class="form-group required <%= @error_msg[:status].blank? ? "" : "has-error" %>">
+            <%= f.label :Status, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.select :status, {'Select Store Status': "", 'Trading': "Trading", 'Construction': "Construction", 'TempClosure': "Temp Closure"},  {class: "form-control", required: true} %>
+            </div>
+
+          </div>
+
+          <div class="form-group required <%= @error_msg[:phone_num].blank? ? "" : "has-error" %>">
+
+            <%= f.label :Phone_Number, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :phone_num, {class: "form-control", required: true} %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:district_manager].blank? ? "" : "has-error" %>">
+
+            <%= f.label :district_manager, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :district_manager, {class: "form-control", required: true} %>
+            </div>
+          </div>
+
+          <div class="form-group required <%= @error_msg[:dm_contact_num].blank? ? "" : "has-error" %>">
+
+            <%= f.label :District_Manager_contact_number, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :dm_contact_num, {class: "form-control", required: true} %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:num_of_drivethru].blank? ? "" : "has-error" %>">
+            <%= f.label :DriveThru_Number, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.text_field :num_of_drivethru, {class: "form-control", required: true} %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:is_halal].blank? ? "" : "has-error" %>">
+            <%= f.label :Halal, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.check_box :is_halal, :data => { :size=>'medium',
+                 'on-color'=>'success', 'on-text'=> "#{t('yes').upcase}",
+                  'off-text'=> "#{t('no').upcase}" } %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:is_cafe].blank? ? "" : "has-error" %>">
+            <%= f.label :Cafe, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.check_box :is_cafe, :data => { :size=>'medium',
+                 'on-color'=>'success', 'on-text'=> "#{t('yes').upcase}",
+                  'off-text'=> "#{t('no').upcase}" } %>
+            </div>
+          </div>
+          <div class="form-group required <%= @error_msg[:archived].blank? ? "" : "has-error" %>">
+            <%= f.label :archived, class: "control-label col-md-3" %>
+            <div class="col-md-7">
+              <%= f.check_box :archived, :data => { :size=>'medium',
+                 'on-color'=>'success', 'on-text'=> "#{t('yes').upcase}",
+                  'off-text'=> "#{t('no').upcase}" } %>
+            </div>
+          </div>
+
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-warning active">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+            </label>
+            <label class="btn btn-warning" style="margin-left: 10px;">
+              <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+            </label>
+            <label class="btn btn-warning">
+              <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+            </label>
+          </div>
+
+          <div class="btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+            <input type="checkbox" checked autocomplete="off"> Checked
+            </label>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-12 col-md-offset-2">
+              <span class="help-block"><span class="mandatory">*</span> denotes required field</span>
+            </div>
+          </div>
+
+        <div class="modal-footer">
+          <div class="actions col-md-12 text-center">
+            <%= f.submit submit_label, {class: "btn btn-success"} %>
+            <%= f.button 'Cancel', {class: "btn btn-info", "data-dismiss" => "modal", type: "button", id: "btnCancel"} %>
+             <% if controller.action_name == "edit" %>
+                <%= f.button 'Delete', {id: "delete", class: "btn btn-danger", "type" => "button", "data-toggle" => "collapse", "data-target" => "#confirm-delete-pane"} %>
+               <div id="confirm-delete-pane" class="confirm-delete-pane collapse col-md-12 text-center">
+                 <p>Please confirm that you want to delete store: <%= @store.store_num %></p>
+                 <%= link_to 'Confirm Delete', store_path(@store.id),
+                   {method: 'delete', remote: true, id: 'confirm-delete', class: 'btn btn-danger'} %>
+               </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>

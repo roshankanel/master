@@ -1,0 +1,29 @@
+<%# this is trigger only after either create or  update or show %>
+<% unless store.blank? %>
+<tr <tr style='background-color: #d4edda;' id=<%= store.id %> >
+  <td style="text-align:right"><%= store.id %></td>
+  <td style="text-align:right"><%= store.store_num %></td>
+  <td><%= store.address %></td>
+  <td><%= store.city %></td>
+  <td style="text-align:right" ><%= store.postcode %></td>
+  <td><%= store.state_region %></td>
+  <td><%= store.status %></td>
+  <td style="text-align:right"><%= store.phone_num %></td>
+  <td><%= store.district_manager %></td>
+  <td style="text-align:right"><%= store.dm_contact_num %></td>
+  <td><%= store.is_halal==0 ? "N" : "Y" %></td>
+  <td><%= store.is_cafe==0 ? "N" : "Y" %></td>
+  <td><%= store.num_of_drivethru %></td>
+  <td style="text-align:center">
+    <div>
+      <%= link_to 'Show',  store_path(store.id), {
+        remote: true, "data-target" => "#modal-window",
+        class: "btn btn-sm btn-primary"} %>
+
+      <%= link_to 'Edit', edit_store_path(store.id), {
+        remote: true, "data-target" => "#modal-window",
+        class: "btn btn-sm btn-warning"} %>
+    </div>
+  </td>
+</tr>
+<% end %>

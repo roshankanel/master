@@ -1,0 +1,33 @@
+<% unless stores.blank? %>
+  <% stores.each do |cl| %>
+  <tr id=<%= cl.id %> >
+    <td><%= cl.id %></td>
+    <td style="text-align:right"><%= cl.store_num %></td>
+    <td><%= cl.address %></td>
+    <td><%= cl.city %></td>
+    <td style="text-align:right" ><%= cl.postcode %></td>
+    <td><%= cl.state_region %></td>
+    <td><% if cl.store_type_id != nil%>
+      <%= store_types.find(cl.store_type_id).name %>
+      <% end  %></td>
+    <td><%= cl.status %></td>
+    <td style="text-align:right"><%= cl.phone_num %></td>
+    <td><%= cl.district_manager %></td>
+    <td style="text-align:right"><%= cl.dm_contact_num %></td>
+    <td><%= cl.is_halal==0 ? "N" : "Y" %></td>
+    <td><%= cl.is_cafe==0 ? "N" : "Y" %></td>
+    <td style="text-align:right"><%= cl.num_of_drivethru %></td>
+    <td style="text-align:center">
+      <div>
+        <%= link_to 'Show',  store_path(cl), {
+          remote: true, "data-target" => "#modal-window",
+          class: "btn btn-sm btn-primary"} %>
+
+        <%= link_to 'Edit', edit_store_path(cl), {
+          remote: true, "data-target" => "#modal-window",
+          class: "btn btn-sm btn-warning"} %>
+      </div>
+    </td>
+  </tr>
+  <% end %>
+<% end %>

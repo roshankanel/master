@@ -1,0 +1,89 @@
+<!-- Modal -->
+  <div class="modal-dialog  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="modalTilte">Store  Number: <%= @store.store_num %></h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class='modal-body'>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Address</div>
+          <div class="col-md-8"><%= @store.address %></div>
+        </div>
+
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">City</div>
+          <div class="col-md-8"><%= @store.city %></div>
+        </div>
+
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Postcode</div>
+          <div class="col-md-8"><%= @store.postcode %></div>
+        </div>
+
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">State Region</div>
+          <div class="col-md-8"><%= @store.state_region %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Store Type</div>
+          <div class="col-md-8"><%= @store_type.name %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Status</div>
+          <div class="col-md-8"><%= @store.status %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Phone Number</div>
+          <div class="col-md-8"><%= @store.phone_num %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">District Manager</div>
+          <div class="col-md-8"><%= @store.district_manager %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Manager Contact Number</div>
+          <div class="col-md-8"><%= @store.dm_contact_num %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Halal</div>
+          <div class="col-md-8"><%= @store.is_halal ==0? "No" : "Yes" %> </div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Cafe</div>
+          <div class="col-md-8"><%= @store.is_cafe ==0? "No" : "Yes" %></div>
+        </div>
+        <div class="field-group-inline row">
+          <div class="field-label col-md-3">Drivethru Number</div>
+          <div class="col-md-8"><%= @store.num_of_drivethru %></div>
+        </div>
+
+
+        <div class="field-group-inline row" data-field="created">
+          <div class="field-label col-md-3">Created at</div>
+          <div class="col-md-8">
+            <%= @store.created_at.to_s(:medium) %> by <%= @store.created_by %>
+          </div>
+        </div>
+      <div class="field-group-inline row" data-field="updated">
+        <div class="field-label col-md-3">Updated at</div>
+        <div class="col-md-8">
+          <%= @store.updated_at.to_s(:medium) %> by <%= @store.updated_by %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="actions col-md-12 text-center">
+          <%= button_tag 'Close', {class: "btn btn-default", "data-dismiss" => "modal", id: 'btnClose'} %>
+        </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#btnClose').click(function() {
+       $("#modal-window").modal("hide");
+    });
+  });
+</script>

@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <%= form_tag(stores_path, method: 'get', id: 'search_store') do |f| %>
+    <h1>
+      Stores
+    </h1>
+    <hr>
+    <div>
+      <%= link_to "Add Store", new_store_path,
+        {'class' => 'btn btn-success', 'remote' => true,
+          'data-target' => '#myModal', 'id' => 'Add_btn'} %>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-2">
+        <%= search_field_tag :store_num, nil, class: 'form-control',
+        placeholder: 'Store Number', value: params[:store_num] %>
+      </div>
+      <div class="col-sm-2">
+        <%= search_field_tag :city, nil, class: 'form-control',
+        placeholder: 'City', value: params[:city] %>
+      </div>
+      <div class="col-sm-2">
+
+        <%= select_tag :state_region, options_from_collection_for_select(@states,"state_region","state_region",
+          params[:state_region].to_s), {prompt: "State Region", class: 'form-control selectpicker'} %>
+      </div>
+      <div class="col-sm-2">
+        <%= select_tag :store_type_id, options_from_collection_for_select(@types,"id","name",
+          params[:store_type_id].to_s), {prompt: "Store Type", class: 'form-control selectpicker'} %>
+      </div>
+      <div class="col-sm-2">
+        <%= select_tag :status, options_from_collection_for_select(@status,"status","status",
+          params[:status].to_s), {prompt: "Store Type", class: 'form-control selectpicker'} %>
+      </div>
+      <div class="col-sm-2">
+          <%= submit_tag "Submit", class: 'btn btn-primary btn-md', :name => nil,
+            id: 'log_submit_btn' %>
+          <input type="button" value="Clear" id="clear_filter"
+            class="btn btn-danger btn-md">
+      </div>
+    </div>
+  <% end %>
+  <br>
+  <% unless @stores.blank? %>
+    <table class="table table-bordered table-hover table-striped" id="tblStore">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Store Number </th>
+          <th scope="col">Address</th>
+          <th scope="col">City</th>
+          <th scope="col">Postcode</th>
+          <th scope="col">State Region</th>
+          <th scope="col">Store Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Phone no.</th>
+          <th scope="col">District Manager</th>
+          <th scope="col">Manager Contct No.</th>
+          <th scope="col">Halal</th>
+          <th scope="col">Cafe</th>
+          <th scope="col">No. of Drivethru</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "row",  locals: { stores: @stores, store_types: @types} %>
+      </tbody>
+    </table>
+  <% end %>
+<div>
+
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+  <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#tblStore').DataTable();
+    // $('#tblItem').DataTable({
+    //   "dom": 'lBfrtip',
+    //   buttons: [
+    //     {
+    //       extend: 'excelHtml5',
+    //       exportOptions: {
+    //           columns: [ 0, 1, 2, 3, 4, 5 ]
+    //       }
+    //     },
+    //     {
+    //       extend: 'pdfHtml5',
+    //       exportOptions: {
+    //         columns: [ 0, 1, 2, 3, 4, 5 ]
+    //       }
+    //     }
+    //   ]
+    // });
+
+  });
+
+  $('#clear_filter').click(function() {
+    $('#tblStore').DataTable().clear().draw();
+    $("#store_num").val('');
+    $("#city").val('');
+    $("#state_region").val($("#state_region option:first").val());
+    $("#store_type_id").val($("#store_type_id option:first").val());
+  });
+
+</script>
