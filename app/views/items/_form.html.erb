@@ -33,13 +33,13 @@
           <div class="form-group required <%= @error_msg[:setup_price].blank? ? "" : "has-error" %>">
             <%= f.label :setup_price, class: "control-label col-md-2" %>
             <div class="col-md-8">
-              <%= f.text_field :setup_price, {class: "form-control", type: "number", min: "0", required: true} %>
+              <%= f.text_field :setup_price, {class: "form-control", type: "number", min: "0", step: "any", required: true} %>
             </div>
           </div>
           <div class="form-group required <%= @error_msg[:unit_price].blank? ? "" : "has-error" %>">
             <%= f.label :unit_price, class: "control-label col-md-2" %>
             <div class="col-md-8">
-              <%= f.text_field :unit_price, {class: "form-control", type: "number", min: "0", required: true} %>
+              <%= f.text_field :unit_price, {class: "form-control", type: "number", min: "0", step: "any", required: true} %>
             </div>
           </div>
 
