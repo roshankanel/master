@@ -47,7 +47,6 @@ class StoresController < ApplicationController
 
 ## Add New Store
   def new
-    byebug
     @store = Store.new
     @types = StoreType.all
     @states = Store.order(:state_region).pluck(:state_region).uniq
