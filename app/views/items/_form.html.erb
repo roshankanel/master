@@ -33,13 +33,13 @@
           <div class="form-group required <%= @error_msg[:setup_price].blank? ? "" : "has-error" %>">
             <%= f.label :setup_price, class: "control-label col-md-2" %>
             <div class="col-md-8">
-              <%= f.text_field :setup_price, {class: "form-control", required: true} %>
+              <%= f.text_field :setup_price, {class: "form-control", type: "number", min: "0", required: true} %>
             </div>
           </div>
           <div class="form-group required <%= @error_msg[:unit_price].blank? ? "" : "has-error" %>">
             <%= f.label :unit_price, class: "control-label col-md-2" %>
             <div class="col-md-8">
-              <%= f.text_field :unit_price, {class: "form-control", required: true} %>
+              <%= f.text_field :unit_price, {class: "form-control", type: "number", min: "0", required: true} %>
             </div>
           </div>
 
@@ -80,7 +80,7 @@
           <div class="actions col-md-12 text-center">
             <%= f.submit submit_label, {class: "btn btn-success"} %>
             <%= f.button 'Cancel', {class: "btn btn-info", "data-dismiss" => "modal", type: "button", id: "btnCancel"} %>
-             <% if controller.action_name == "edit" %> 
+             <% if controller.action_name == "edit" %>
                 <%= f.button 'Delete', {id: "delete", class: "btn btn-danger", "type" => "button", "data-toggle" => "collapse", "data-target" => "#confirm-delete-pane"} %>
                <div id="confirm-delete-pane" class="confirm-delete-pane collapse col-md-12 text-center">
                  <p>Please confirm that you want to delete item: <%= @item.item_product %></p>
