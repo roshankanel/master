@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users
   resources :items
   resources :stores
+  resources :quotes
   # Role and Permission related
   resources :permissions
   resources :roles do

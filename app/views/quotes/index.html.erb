@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <%= form_tag(quotes_path, method: 'get', id: 'search_store') do |f| %>
+    <h1>
+      Stores
+    </h1>
+    <hr>
+    <div>
+      <% if policy(Store).create? %>
+        <%= link_to "Add Store", new_store_path,
+          {'class' => 'btn btn-success', 'remote' => true,
+            'data-target' => '#myModal', 'id' => 'Add_btn'} %>
+
+      <% end %>
+      <% if policy(Store).create? %>
+        <%= link_to "Import Store", new_store_path,
+          {'class' => 'btn btn-warning', 'remote' => true,
+            'data-target' => '#myModal', 'id' => 'Add_btn'} %>
+      <% end %>
+        <hr>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2">
+        <%= select_tag :item_product, options_from_collection_for_select(@items, "id", "item_product",
+          params[:item_product].to_s), {prompt: "Item Product", class: 'form-control selectpicker'} %>
+      </div>
+      <div class="col-sm-2">
+        <%= select_tag :state_region, options_from_collection_for_select(@regions, "state_region", "state_region",
+          params[:state_region].to_s), {class: 'form-control selectpicker', multiple: true} %>
+      </div>
+    </div>
+  <% end %>
+  <br>
+<div>
+
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+  <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+<script type="text/javascript">
+  $('#clear_filter').click(function() {
+    $('#tblStore').DataTable().clear().draw();
+    $("#store_num").val('');
+    $("#city").val('');
+    $("#state_region").val($("#state_region option:first").val());
+    $("#store_type_id").val($("#store_type_id option:first").val());
+  });
+  $('#state_region').multiselect({
+   nonSelectedText: 'Select Region',
+   enableFiltering: false,
+   enableCaseInsensitiveFiltering: false,
+   buttonWidth:'200px'
+ });
+ $('.caret').remove();
+</script>

@@ -100,3 +100,16 @@ div.canvas div.container-fluid{background-color: #FFF;}
   form .field-group-inline{overflow:visible;}
   .field-group-inline div.field-label{font-weight:bold; display:inline-block; text-align:right;}
   .field-group-inline div.field-label-left{margin:0.2em 1em;display:inline-block; text-align:left;}
+
+
+  .multiselect.dropdown-toggle.btn {
+      text-align: left;
+      border-color:black
+      }
+
+  .btn.multiselect.dropdown-toggle::after {
+      float: right;
+      margin-right: 0;
+      margin-top: 7px;
+      caret: none;
+  }

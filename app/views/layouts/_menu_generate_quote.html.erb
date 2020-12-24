@@ -1,0 +1,9 @@
+<li class="dropdown <%= @active_menu == "quote" ? "active" : "" %>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+    role="button" aria-haspopup="true" aria-expanded="false">
+      Quote
+  </a>
+  <ul class="dropdown-menu navmenu-nav">
+    <li><%= link_to 'Generate Quote', quotes_path if policy(Role).index? %></li>
+  </ul>
+</li>

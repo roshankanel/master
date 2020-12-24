@@ -8,6 +8,7 @@
        <%= render partial: 'layouts/menu_item' if policy(Item).index? %>
        <%= render partial: 'layouts/menu_store' %>
        <%= render partial: 'layouts/menu_role_permission' if policy(Role).index? || policy(Permission).index? %>
+       <%= render partial: 'layouts/menu_generate_quote' %>
      </ul>
    </div>
 </nav>
