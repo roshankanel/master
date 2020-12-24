@@ -1,35 +1,35 @@
-ITEM_PRODUCT,ITEM_NUMBER,FINISHED_SIZE,ENTER_QUANTITY,Nett_PRICE_Exc.Pak&Send,Setup,Unit_Price
-A4 Letterhead,PF002,297 x 210mm,5000,$957.68,44.88,0.18
-A4 Poster - Yupo 1s'd,PF003,297 x 210mm,400,$910.14,42.52,2.17
-A4 Poster - Gloss Art  1s'd ,PF004,297 x 210mm,1,$42.81,42.56,0.26
-A4 Poster - Yupo 2s'd ,PF005,297 x 210mm,1,$52.73,50.42,2.31
-A4 Poster - Gloss Art  2s'd ,PF006,210 x 297mm,1,$43.39,42.97,0.42
-A3 Poster Yupo 1S'd,PF007,420 x 297mm,100,$91.15,44.52,0.47
-A3 Poster Gloss Art 1S'd,PF008,420 x 297mm,100,$85.31,38.67,0.47
-A3 Poster Yupo 2S'd,PF009,420 x 297mm,100,$329.00,48.64,2.80
-A3 Poster Gloss Art 2S'd,PF010,420 x 297mm,100,$107.43,40.58,0.67
-A2 Internal Poster 1S'd,PF011,594 x 420mm,50,$69.35,43.88,0.51
-B1 Window Poster - 1s'd,PF012,1000 x 700mm,1,$63.91,58.04,5.87
-B1 Window Poster - 2s'd,PF013,1000 x 700mm,120,$814.78,61.42,6.28
-Loyalty Cards 1s'd,PF014,50 x 90mm,100,$54.78,50.20,0.05
-Loyalty Cards 2s'd,PF015,50 x 90mm,3000,$246.06,51.06,0.06
-Business Cards 1s'd,PF016,50 x 90mm,100,$54.78,50.20,0.05
-Coffee Block Tags ,PF017,,10,$87.36,77.66,0.97
-Counter Cards,PF018,297 x 210mm,100,$331.58,62.37,2.69
-Cloth Banners,PF019,,,$0.00,0.00,0.00
-Envelopes,PF020,,100,$198.45,187.43,0.11
-Exterior Banner 1S'd,PF021,900 x 3000mm,1,$151.26,84.97,66.29
-Exterior Banner 2S'd,PF022,900 x 3000mm,400,"$36,281.23",98.65,90.46
-Flavour Cards,PF023,,,$0.00,0.00,0.00
-Pre-Readers,PF024,700 x 630mm,290,"$1,263.54",60.15,4.15
-FSTs,PF025,700 x 630mm,290,"$1,263.54",60.15,4.15
-FSTs Wide,PF026,1080 x 630mm,100,$780.11,60.15,7.20
-Milk Alternative Cards,PF027,,,$0.00,0.00,0.00
-Sail Flags B3,PF028,,,$0.00,0.00,0.00
-Speaker Box Wing,PF029,,1,$68.30,61.02,7.28
-Counter Decals,PF030,,,$0.00,0.00,0.00
-Standee,PF031,1800 x 1000mm,450,"$13,378.70",70.42,29.57
-DL Flyers 2s'd,PF032,,"10,000",$559.94,426.95,0.01
-A5 Leaflets 2s'd,PF033,,"1,000",$445.44,424.53,0.02
-Round Floor Decals,PF034,,,$0.00,0.00,0.00
-Ceiling Danglers,PF035,,125,$426.84,69.13,2.86
+ITEM_PRODUCT,ITEM_NUMBER,FINISHED_SIZE,ENTER_QUANTITY,Nett_PRICE_Exc.Pak&Send,Setup,Unit_Price,include_in_report
+A4 Letterhead,PF002,297 x 210mm,5000,$957.68,44.88,0.18,0
+A4 Poster - Yupo 1s'd,PF003,297 x 210mm,400,$910.14,42.52,2.17,0
+A4 Poster - Gloss Art  1s'd ,PF004,297 x 210mm,1,$42.81,42.56,0.26,0
+A4 Poster - Yupo 2s'd ,PF005,297 x 210mm,1,$52.73,50.42,2.31,0
+A4 Poster - Gloss Art  2s'd ,PF006,210 x 297mm,1,$43.39,42.97,0.42,0
+A3 Poster Yupo 1S'd,PF007,420 x 297mm,100,$91.15,44.52,0.47,0
+A3 Poster Gloss Art 1S'd,PF008,420 x 297mm,100,$85.31,38.67,0.47,0
+A3 Poster Yupo 2S'd,PF009,420 x 297mm,100,$329.00,48.64,2.80,0
+A3 Poster Gloss Art 2S'd,PF010,420 x 297mm,100,$107.43,40.58,0.67,0
+A2 Internal Poster 1S'd,PF011,594 x 420mm,50,$69.35,43.88,0.51,0
+B1 Window Poster - 1s'd,PF012,1000 x 700mm,1,$63.91,58.04,5.87,0
+B1 Window Poster - 2s'd,PF013,1000 x 700mm,120,$814.78,61.42,6.28,0
+Loyalty Cards 1s'd,PF014,50 x 90mm,100,$54.78,50.20,0.05,0
+Loyalty Cards 2s'd,PF015,50 x 90mm,3000,$246.06,51.06,0.06,0
+Business Cards 1s'd,PF016,50 x 90mm,100,$54.78,50.20,0.05,0
+Coffee Block Tags ,PF017,,10,$87.36,77.66,0.97,0
+Counter Cards,PF018,297 x 210mm,100,$331.58,62.37,2.69,0
+Cloth Banners,PF019,,,$0.00,0.00,0.00,0
+Envelopes,PF020,,100,$198.45,187.43,0.11,0
+Exterior Banner 1S'd,PF021,900 x 3000mm,1,$151.26,84.97,66.29,0
+Exterior Banner 2S'd,PF022,900 x 3000mm,400,"$36,281.23",98.65,90.46,1
+Flavour Cards,PF023,,,$0.00,0.00,0.00,0
+Pre-Readers,PF024,700 x 630mm,290,"$1,263.54",60.15,4.15,0
+FSTs,PF025,700 x 630mm,290,"$1,263.54",60.15,4.15,1
+FSTs Wide,PF026,1080 x 630mm,100,$780.11,60.15,7.20,1
+Milk Alternative Cards,PF027,,,$0.00,0.00,0.00,0
+Sail Flags B3,PF028,,,$0.00,0.00,0.00,0
+Speaker Box Wing,PF029,,1,$68.30,61.02,7.28,0
+Counter Decals,PF030,,,$0.00,0.00,0.00,0
+Standee,PF031,1800 x 1000mm,450,"$13,378.70",70.42,29.57,0
+DL Flyers 2s'd,PF032,,"10,000",$559.94,426.95,0.01,0
+A5 Leaflets 2s'd,PF033,,"1,000",$445.44,424.53,0.02,1
+Round Floor Decals,PF034,,,$0.00,0.00,0.00,0
+Ceiling Danglers,PF035,,125,$426.84,69.13,2.86,1

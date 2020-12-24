@@ -12,7 +12,8 @@ module ItemSeeds
         finished_size: row["FINISHED_SIZE"],
         setup_price: row["Setup"],
         unit_price:  row["Unit_Price"],
-        archived:   0,
+        include_in_report: row["include_in_report"],
+        archived: 0,
         created_by: modifier,
         updated_by: modifier)
     end

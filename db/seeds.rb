@@ -19,5 +19,6 @@ class AppSeed
       require "#{Rails.root}/db/prod_seeds/role_permission"
       require "#{Rails.root}/db/prod_seeds/store_types/store_types"
       require "#{Rails.root}/db/prod_seeds/stores/stores"
+      require "#{Rails.root}/db/prod_seeds/store_constant"
   end
 end

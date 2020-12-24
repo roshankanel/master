@@ -6,6 +6,7 @@ class CreateTblItem < ActiveRecord::Migration[6.0]
       t.string :finished_size, limit: 200
       t.decimal :setup_price, null: false, precision: 10, scale: 2
       t.decimal :unit_price, null: false, precision: 10, scale: 2
+      t.integer :include_in_report, limit: 1
       t.integer :archived, limit: 1
       t.timestamps
       t.integer :lock_version

@@ -14,11 +14,18 @@ class CreateTblStore < ActiveRecord::Migration[6.0]
        t.integer :is_halal, null: false, limit: 1
        t.integer :is_cafe, null: false, limit: 1
        t.integer :num_of_drivethru, null: false, limit: 1
+       t.integer :internal_digital, limit:1
+       t.integer :drive_thru_digital, limit:1
+       t.integer :multiplier, limit:1
+       t.decimal :setup_price, precision: 10, scale: 2
        t.integer :archived, limit: 1
        t.timestamps
        t.integer :lock_version
        t.string :created_by, null: false, limit: 200
        t.string :updated_by, null: false, limit: 200
+       t.index ["store_num"], name: "tbl_stores_idx0"
+       t.index ["store_type_id"], name: "tbl_stores_idx1"
+       t.index ["state_region"], name: "tbl_stores_idx2"
    end
 
    create_table "tbl_store_logs" do |t|
