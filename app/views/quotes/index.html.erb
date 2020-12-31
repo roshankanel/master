@@ -1,55 +1,229 @@
 <div class="container-fluid">
-  <%= form_tag(quotes_path, method: 'get', id: 'search_store') do |f| %>
-    <h1>
-      Stores
-    </h1>
-    <hr>
+  <h1>
+    Generate Quote
+  </h1>
+  <hr>
+  <div class="row">
+    <div class="col-sm-2">
+      <%= select_tag :item_product, options_from_collection_for_select(@items, "item_number", "item_product",
+        params[:item_product].to_s), {prompt: "Item Product", class: 'form-control selectpicker', required: true} %>
+    </div>
+    <div class="col-sm-1 customDropdown">
+      <%= select_tag :state_region, options_from_collection_for_select(@regions, "state_region", "state_region",
+        params[:state_region].to_s), {class: 'form-control', multiple: true,  required: true} %>
+    </div>
+
+
+    <div class="col-sm-1" style="margin-left: 50px;">
+      <%= text_field_tag("TimeSlot", nil, placeholder: "Activation time slot", maxlength: 5, type: "number", class: "form-control", required: true)%>
+    </div>
+    <div class="col-sm-1">
+      <%= text_field_tag("Quantity", nil, placeholder: "Enter quantity per store", maxlength: 5, type: "number", class: "form-control", required: true)%>
+    </div>
+    <div class="col-sm-1">
+      <%= text_field_tag("Overs", nil, placeholder: "Enter overs", maxlength: 5, type: "number", class: "form-control", required: true)%>
+    </div>
+    <div class="col-sm-1">
+      <%= text_field_tag :dead_line, nil, {class: "datepicker form-control",
+            "data-provide" => 'datepicker',
+            placeholder: "Material Dead Line", autocomplete: 'off', required: true} %>
+    </div>
     <div>
-      <% if policy(Store).create? %>
-        <%= link_to "Add Store", new_store_path,
-          {'class' => 'btn btn-success', 'remote' => true,
-            'data-target' => '#myModal', 'id' => 'Add_btn'} %>
+      <label class="checkbox-inline" style="padding-top: 5px; font-weight: bold;"><input type="checkbox" id="dtdigital">Non Digital Drive Thru's</label>
+      <label class="checkbox-inline" style="padding-top: 5px; font-weight: bold;"><input type="checkbox" value="" id="indigital">Non Digital Internal</label>
+    </div>
+    <div>
 
-      <% end %>
-      <% if policy(Store).create? %>
-        <%= link_to "Import Store", new_store_path,
-          {'class' => 'btn btn-warning', 'remote' => true,
-            'data-target' => '#myModal', 'id' => 'Add_btn'} %>
-      <% end %>
-        <hr>
     </div>
 
-    <div class="row">
-      <div class="col-sm-2">
-        <%= select_tag :item_product, options_from_collection_for_select(@items, "id", "item_product",
-          params[:item_product].to_s), {prompt: "Item Product", class: 'form-control selectpicker'} %>
-      </div>
-      <div class="col-sm-2">
-        <%= select_tag :state_region, options_from_collection_for_select(@regions, "state_region", "state_region",
-          params[:state_region].to_s), {class: 'form-control selectpicker', multiple: true} %>
-      </div>
+
+    <div class="col-sm-2">
+      <% if policy(Store).create? %>
+          <%= link_to "Add to generate quote", nil, {'class' => 'btn-sm btn-primary right', 'id' => 'AddQuote', 'remote' => true} %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="checkbox" value="" id="quote-filter">Add aditional filter</label>
+    </div>
+    <div id="quote-filter-container" class="col-md-10 pl-4 d-none">
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="radio" name="quoteFilter" id="exclude-halal">Exclude Halal</label>
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="radio" name="quoteFilter" id="halal-only">Halal Only</label>
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="radio" name="quoteFilter" id="exclude-cafe">Exclude Cafe</label>
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="radio" name="quoteFilter" id="cafe-only">Cafe Only</label>
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="radio" name="quoteFilter" id="exclude-multiplier">Exclude Multiplier</label>
+      <label class="checkbox-inline" style="padding-left: 30px; padding-top: 5px; font-weight: bold;"><input type="radio" name="quoteFilter" id="multiplier-only">Multiplier Only</label>
+    </div>
+  </div>
+  <hr>
   <br>
-<div>
 
-  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
-  <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+  <table class="table table-bordered table-hover table-striped" id="tblQuoteItem">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" style="text-align:center">Item Product<br/> Code</th>
+        <th scope="col" style="text-align:center">Item Product</th>
+        <th scope="col" style="text-align:center">State / Region</th>
+        <th scope="col" style="text-align:center">Time Slots</th>
+        <th scope="col" style="text-align:center">STORE TYPE CODES</th>
+        <th scope="col" style="text-align:center">KEY NUMBER <br/>enter key artwork file reference</th>
+        <th scope="col" style="text-align:center">Finished Size</th>
+        <th scope="col" style="text-align:center">Quantity <br/>Per Store</th>
+        <th scope="col" style="text-align:center">Overs</th>
+        <th scope="col" style="text-align:center">Total Quantity</th>
+        <th scope="col" style="text-align:center">Total Price <br/>+ GST</th>
+        <th scope="col" style="text-align:center">Wallet Box & <br/> Kit Cost</th>
+        <th scope="col" style="text-align:center">Material Deadline</th>
+        <th scope="col" style="text-align:center">Live Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script type="text/javascript">
-  $('#clear_filter').click(function() {
-    $('#tblStore').DataTable().clear().draw();
-    $("#store_num").val('');
-    $("#city").val('');
-    $("#state_region").val($("#state_region option:first").val());
-    $("#store_type_id").val($("#store_type_id option:first").val());
+  $(document).ready(function () {
+
+    $('.datepicker').datepicker({
+      autoclose: true,
+      format: 'dd-mm-yyyy',
+      startDate: '0',
+      zIndexOffset: 10000
+    });
+
+    $('#clear_filter').click(function() {
+      clearFilters();
+    });
+
+    $('#state_region').multiselect({
+      nonSelectedText: 'Select Region',
+      enableFiltering: false,
+      enableCaseInsensitiveFiltering: false,
+      buttonWidth:'200px'
+    });
+
+    $('#AddQuote').click(function() {
+      var item_product_code = '';
+      var item_product = '';
+      var regions = '';
+      var quantity = 0;
+      var time_slot = 0;
+      var overs = 0;
+      var quote_filter = $('#quote-filter').is(':checked');
+      var dtdigital = $('#dtdigital').is(':checked');
+      var indigital = $('#indigital').is(':checked');
+      item_product = $('#item_product :selected').text();
+      item_product_code = $('#item_product :selected').val();
+      $('#state_region  :selected').each(function(i, sel){
+        regions = $(sel).val() + ', '+ regions;
+      });
+      time_slot = $('#TimeSlot').val();
+      quantity = $('#Quantity').val();
+      overs =  $('#Overs').val();
+      var deadline = $("#dead_line").datepicker("getDate");
+      if (quote_filter == true){
+        var exclude_halal = $('#exclude-halal').is(':checked');
+        var halal_only = $('#halal-only').is(':checked');
+        var exclude_cafe = $('#exclude-cafe').is(':checked');
+        var cafe_only = $('#cafe-only').is(':checked');
+        var exclude_mulitplier = $('#exclude-multiplier').is(':checked');
+        var multiplier_only = $('#multiplier-only').is(':checked');
+        addQuotes(item_product_code, item_product, regions, time_slot, quantity, overs, quote_filter, exclude_halal, halal_only, exclude_cafe, cafe_only, exclude_mulitplier, multiplier_only, dtdigital, indigital, deadline);
+      }else{
+        addQuotes(item_product_code, item_product, regions, time_slot, quantity, overs, quote_filter, null, null, null, null, null, null, dtdigital, indigital, deadline);
+      }
+
+    });
+
+    $('.caret').remove();
+
+    $("#tblQuoteItem").on("click",".removeRow", function(){
+      $(this).closest("tr").remove();
+    });
+
+    $('#quote-filter').change(function(){
+    	$('#quote-filter-container').toggleClass('d-none', !$(this).is(':checked'));
+    });
+
   });
-  $('#state_region').multiselect({
-   nonSelectedText: 'Select Region',
-   enableFiltering: false,
-   enableCaseInsensitiveFiltering: false,
-   buttonWidth:'200px'
- });
- $('.caret').remove();
+
+  function clearFilters(){
+    $('#tblStore').DataTable().clear().draw();
+    $("#TimeSlot").val('');
+    $("#Quantity").val('');
+    $("#Overs").val('');
+    $('#dead_line').val('');
+    $("#item_product").val($("#item_product option:first").val());
+    $("#state_region").multiselect("clearSelection");
+    $("#state_region").multiselect('refresh');
+    $('input[type=checkbox]').prop('checked',false);
+    $('input[type=radio]').prop('checked',false);
+    $('#quote-filter-container').toggleClass('d-none', !$(this).is(':checked'));
+  }
+
+
+ function addQuotes(item_product_code, item_product, regions, time_slot, quantity, overs, quote_filter, exclude_halal, halal_only, exclude_cafe, cafe_only, exclude_mulitplier, multiplier_only, dtdigital, indigital, deadline){
+    return $.ajax({
+     url: /add_quotes/,
+     type: 'GET',
+     data: {
+       item_product_code: item_product_code,
+       item_product: item_product,
+       regions: regions,
+       time_slot: time_slot,
+       quantity: quantity,
+       overs: overs,
+       quote_filter: quote_filter,
+       exclude_halal: exclude_halal,
+       halal_only: halal_only,
+       exclude_cafe: exclude_cafe,
+       cafe_only: cafe_only,
+       exclude_mulitplier: exclude_mulitplier,
+       multiplier_only: multiplier_only,
+       dtdigital: dtdigital,
+       indigital: indigital,
+       dead_line: deadline
+     },
+    }).done(function(data, textStatus, jqXHR){
+     var sn = $('table#tblQuoteItem tr:last td:first')[0];
+
+     if(sn == undefined){
+       sn = 1;
+     }else{
+       sn = parseInt($('table#tblQuoteItem tr:last td:first')[0].innerText) + 1;
+     }
+     var d = new Date();
+     var currentDate = d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear();
+     $('#tblQuoteItem tr:last').after('<tr><td>'+sn+'</td><td>'+ item_product_code +'</td><td>'+ item_product +'</td>\
+       <td>'+ regions.slice(0,-2) +'</td>\
+       <td class=text-right>'+ time_slot +'</td>\
+       <td>'+ data["store_type"] +'</td>\
+       <td>TODO KEY NUMBER</td>\
+       <td>'+ data["item"]["finished_size"] +'</td>\
+       <td class=text-right>'+ quantity +'</td>\
+       <td class=text-right>'+ overs +'</td>\
+       <td class=text-right>'+ data["total_stores"] +'</td>\
+       <td class=text-right>'+ data["total_price"] +'</td>\
+       <td class=text-right>'+ data["kitpack_freight_consolidation"] +'</td>\
+       <td class=text-right>'+data["dead_line"]+'</td>\
+       <td class=text-right>'+currentDate+'</td>\
+       <td><button type=button class=removeRow>Remove</button></td></tr>');
+     $('.removeRow').addClass('form-control btn-sm btn-danger');
+      clearFilters();
+    }).fail(function(jqXHR, textStatus, errorThrown){
+     console.log(jqXHR);
+     console.log(textStatus);
+     console.log(errorThrown);
+    });
+  }
 </script>

@@ -9,6 +9,7 @@ class StoresController < ApplicationController
   # skip_after_action :verify_authorized
   # after_action :verify_authorized, only: [:index, :create, :update, :destroy]
   before_action :retrieve_store, only: [:show, :edit, :update, :destroy]
+  before_action :retrieve_user_permission, only: [:index]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # rescue_from ActionController::UnknownFormat, with: :Unknown_Format
   rescue_from ActiveRecord::StaleObjectError, with: :stale_object_error
@@ -16,9 +17,6 @@ class StoresController < ApplicationController
 
   def index
     @stores = Store.all
-    @types = StoreType.all
-    @states = Store.select(:state_region).distinct
-    @status = Store.select(:status).distinct
     unless search_store_params.blank?
       @stores = Store.all
       store_num = search_store_params["store_num"] unless search_store_params["store_num"].blank?
@@ -107,7 +105,7 @@ class StoresController < ApplicationController
       @store = Store.find(params[:id])
       # if authorize @permission
       if @store.destroy
-        flash.now[:notice] = "Permission '#{@store.store_num}' successfully deleted."
+        flash.now[:notice] = "Store '#{@store.store_num}' successfully deleted."
         render 'row'
       end
     end
@@ -117,6 +115,15 @@ class StoresController < ApplicationController
     # Retrieves the country record
     def retrieve_store
       @store = Store.find(params[:id])
+    end
+
+    def retrieve_user_permission
+      @types = StoreType.all
+      @states = Store.select(:state_region).order(:state_region).distinct
+      @status = Store.select(:status).order(:status).distinct
+      @can_create = policy(Store).create?
+      @can_edit = policy(Store).update?
+      @can_show = policy(Store).show?
     end
 
 

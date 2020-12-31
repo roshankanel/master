@@ -28,8 +28,8 @@ module StoreSeeds
         internal_digital = 1
         drive_thru_digital = 0
       when "2DTDD"
-        internal_digital = 0
-        drive_thru_digital = 0
+        internal_digital = 1
+        drive_thru_digital = 1
       else
         internal_digital = 0
         drive_thru_digital = 0

@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   match '/users/:id/save_roles', to:'users#save_roles', via: [:patch, :post], as: 'user_roles_save'
   match '/users/:id/update_approve', to:'users#update_approve', via: [:patch, :post], as: 'user_approve'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get '/add_quotes/', controller: 'quotes', action: 'add_quote', as: 'add_quote'
 end

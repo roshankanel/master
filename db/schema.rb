@@ -85,40 +85,12 @@ ActiveRecord::Schema.define(version: 2020_12_24_010026) do
     t.string "name", limit: 30, null: false
     t.text "description", null: false
     t.decimal "constant_value", precision: 10, scale: 2, null: false
+    t.integer "archived", limit: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "created_by", limit: 200, null: false
     t.string "updated_by", limit: 200, null: false
     t.index ["name"], name: "store_constants_idx01", unique: true
-  end
-
-  create_table "store_constants_logs", force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-  end
-
-  create_table "store_contstant_logs", force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-  end
-
-  create_table "store_contstants", force: :cascade do |t|
-    t.string "name", limit: 30, null: false
-    t.text "description", null: false
-    t.decimal "constant_value", precision: 10, scale: 2, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "created_by", limit: 200, null: false
-    t.string "updated_by", limit: 200, null: false
-    t.index ["name"], name: "store_contstants_idx01", unique: true
   end
 
   create_table "store_type_logs", force: :cascade do |t|

@@ -3,6 +3,7 @@ class StoreType < ApplicationRecord
   self.table_name = 'store_types'
 
 
+  
   private
 
     # Specifies the fields that have some auto formatting, we use this to distinqush

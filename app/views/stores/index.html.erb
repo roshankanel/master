@@ -5,13 +5,13 @@
     </h1>
     <hr>
     <div>
-      <% if policy(Store).create? %>
+      <% if @can_create == true %>
         <%= link_to "Add Store", new_store_path,
           {'class' => 'btn btn-success', 'remote' => true,
             'data-target' => '#myModal', 'id' => 'Add_btn'} %>
 
       <% end %>
-      <% if policy(Store).create? %>
+      <% if @can_create == true %>
         <%= link_to "Import Store", new_store_path,
           {'class' => 'btn btn-warning', 'remote' => true,
             'data-target' => '#myModal', 'id' => 'Add_btn'} %>

@@ -111,5 +111,28 @@ div.canvas div.container-fluid{background-color: #FFF;}
       float: right;
       margin-right: 0;
       margin-top: 7px;
-      caret: none;
+  }
+
+  input[type=checkbox]
+  {
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 50px;
+  }
+
+  .customDropdown .dropdown-menu>li>a {
+     display: block;
+     padding: 5px 0px;
+  }
+
+  .right {
+    text-align: right;
+    float: right;
+  }
+
+  .text-right {
+    text-align: right;
   }

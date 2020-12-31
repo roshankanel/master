@@ -4,6 +4,7 @@ class StoresConstant < ActiveRecord::Migration[6.0]
       t.string :name , null: false, limit: 30
       t.text   :description, null: false
       t.decimal :constant_value, null: false, precision: 10, scale: 2
+      t.integer :archived, limit: 1
       t.timestamps
       t.string :created_by, null: false, limit: 200
       t.string :updated_by, null: false, limit: 200
